@@ -1,11 +1,10 @@
-
 //@require @packageOverrides
 Ext.Loader.setConfig({
     enabled: true
 });
 
 Ext.application({
-	appFolder: '/FlexibleOrders/resources',
+    appFolder: '/FlexibleOrders/resources',
     models: [
         'BestellungData',
         'ItemData',
@@ -23,7 +22,7 @@ Ext.application({
     views: [
         'IssuePanel',
         'TransitionWindow',
-		'IssueWindow',
+        'IssueWindow',
         'PositionGridPanel',
         'CreditNoteItemGridPanel',
         'CustomerComboBox'
@@ -36,7 +35,7 @@ Ext.application({
     ],
     name: 'MyApp',
     //autoCreateViewport:true,
-    launch: function() {
+    launch: function () {
         Ext.create('MyApp.view.IssuePanel', {
             layout: 'fit',
             renderTo: Ext.get('extjs_createissue')

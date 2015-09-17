@@ -1,9 +1,9 @@
 Ext.define('MyApp.model.CountryData', {
-	extend : 'Ext.data.Model',
+    extend: 'Ext.data.Model',
 
-	idProperty : 'id',
+    idProperty: 'id',
 
-	fields : [ {
-		name : 'country'
-	}]
+    fields: [{
+        name: 'country'
+    }]
 });
