@@ -3,15 +3,19 @@
 GUI with ExtJs 4.2.1 for FlexibleOrders
 
 In order to deploy on a webserver add to pom.xml:
+
+```xml
 <dependency>
     <groupId>de.switajski</groupId>
     <artifactId>FlexibleOrdersGui</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <type>zip</type>
-</dependency>
+</dependency>`
+```
 
-and let maven unpack it:
+and let maven unpack it in the package phase:
 
+```xml
 <build>
     <plugins>
         <plugin>
@@ -36,3 +40,4 @@ and let maven unpack it:
         </plugin>
     </plugins>
 </build>
+```
