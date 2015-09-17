@@ -20,8 +20,7 @@ mvn clean deploy
 ```
 
 ### Adding GUI-artifact to a Java project:
-For those, who are
-In order to deploy the GUI on a webserver add to pom.xml:
+In order to deploy the GUI on a java webserver add to pom.xml:
 
 ```xml
 <dependency>
