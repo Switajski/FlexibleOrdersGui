@@ -22,7 +22,7 @@ module.exports = function (grunt) {
             '  <groupId>de.switajski</groupId>\n' +
             '  <artifactId>FlexibleOrdersGui</artifactId>\n' +
             '  <packaging>pom</packaging>\n' +
-            '  <version>0.1.0</version>\n' +
+            '  <version>0.1.0-SNAPSHOT</version>\n' +
             '  <build>\n' +
             '    <plugins>\n' +
             '      <plugin>\n' +
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
             '              <artifacts>\n' +
             '                <artifact>\n' +
             '                  <file>deploy/FlexibleOrdersGui.zip</file>\n' +
-            '                   <type>zip</type>\n' +
+            '                  <type>zip</type>\n' +
             '                </artifact>\n' +
             '              </artifacts>\n' +
             '            </configuration>\n' +
