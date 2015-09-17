@@ -3,8 +3,7 @@
 GUI with ExtJs 4.2.1 for [FlexibleOrders](https://github.com/Switajski/FlexibleOrders)
 
 
-##Building and tooling
-### Javascript tooling:
+### Javascript tooling with Node.js:
 The code and css in this project is minified with "Grunt" task runner when building. I'm also planning to do some tests and let them run on Travis-CI. This is all done via grunt:
 ```
 npm install -g grunt-cli
@@ -13,14 +12,13 @@ grunt
 ```
 a folder `node_modules` (Node.js modules) and `deploy` (zipped file for maven build) will appear.
 
-### Deploying updated artifact on Github
+2. Deploying updated artifact on Github
 I'm trying to seperate Javascript with its npm tooling from the java world. Nevertheless, the REST-API runs on a java-server. In order to publish a next version GUI as a maven artifact, run:
 ```
 mvn clean deploy
 ```
 
-
-##Adding GUI to a Java project:
+3. Adding GUI-artifact to a Java project:
 For those, who are
 In order to deploy the GUI on a webserver add to pom.xml:
 
