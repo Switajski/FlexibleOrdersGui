@@ -2,7 +2,7 @@ Ext.define('MyApp.view.OrderItemGridPanel', {
     extend: 'MyApp.view.PositionGridPanel',
     alias: 'widget.OrderItemGrid',
     title: "Bestellungen",
-    customicon: '/FlexibleOrders/images/new_ab.png',
+    customicon: constants.RESOURCES_BASE_URL + 'images/new_ab.png',
     onActionClick: function (view, a, b, column, event, record, f) {
         var ocnr = record.data.orderNumber;
         MyApp.getApplication().getController('ConfirmController').onConfirm(
@@ -10,7 +10,7 @@ Ext.define('MyApp.view.OrderItemGridPanel', {
 
     },
     onPdfClick: function (view, a, b, column, event, record, f) {
-        var win = window.open('/FlexibleOrders/reports/'
+        var win = window.open(constants.REST_BASE_URL + 'reports/'
             + record.data.orderNumber + '.pdf', '_blank');
         win.focus();
     },

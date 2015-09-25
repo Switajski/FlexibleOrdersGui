@@ -20,7 +20,7 @@ Ext.define('MyApp.controller.OrderController', {
 		var record = form.getRecord();
 
 		var request = Ext.Ajax.request({
-			url : '/FlexibleOrders/transitions/order',
+			url : constants.REST_BASE_URL + 'transitions/order',
 			jsonData : {
 				orderNumber : form.getValues().order,
 				created : form.getValues().created,
@@ -69,7 +69,7 @@ Ext.define('MyApp.controller.OrderController', {
 		orderWindow.focus();
 
 		var request = Ext.Ajax.request({
-			url : '/FlexibleOrders/order/generateOrderNumber',
+			url : constants.REST_BASE_URL + 'order/generateOrderNumber',
 			success : function(response) {
 				Ext.getCmp('OrderWindow').down('ordernumbercombobox').setValue(
 						Ext.decode(response.responseText).data);
@@ -79,7 +79,7 @@ Ext.define('MyApp.controller.OrderController', {
 
 	deleteOrder : function(orderNumber) {
 		var request = Ext.Ajax.request({
-			url : '/FlexibleOrders/transitions/deleteOrder',
+			url : constants.REST_BASE_URL + 'transitions/deleteOrder',
 			params : {
 				orderNumber : orderNumber
 			},

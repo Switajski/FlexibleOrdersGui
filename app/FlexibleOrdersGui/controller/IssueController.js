@@ -65,7 +65,7 @@ Ext.define('MyApp.controller.IssueController', {
 		if (event == "ok") {
 
 			var request = Ext.Ajax.request({
-				url : '/FlexibleOrders/transitions/issue',
+				url : constants.REST_BASE_URL + 'transitions/issue',
 				// headers: { 'Content-Type': 'application/json' },
 				jsonData : {
 					orderConfirmationNumber : form.getValues().confirmationNumber,

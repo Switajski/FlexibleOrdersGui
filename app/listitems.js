@@ -3,8 +3,14 @@ Ext.Loader.setConfig({
     enabled: true
 });
 
+Ext.define('constants', {
+    singleton: true,
+    REST_BASE_URL: 'http://localhost:8080/FlexibleOrders/',
+    RESOURCES_BASE_URL: 'FlexibleOrdersGui/'
+});
+
 Ext.application({
-    appFolder: '/FlexibleOrders/resources',
+    appFolder: '/FlexibleOrdersGui',
     models: ['BestellungData', 'ItemData', 'ArtikelData', 'KundeData'],
     stores: ['ArtikelDataStore', 'ArchiveItemDataStore',
         'BestellungDataStore', 'ItemDataStore', 'InvoiceItemDataStore',
@@ -19,7 +25,7 @@ Ext.application({
         'IssueController', // FIXME: removing that useless line of code
         // makes the extjs application not starting
         'ConfirmController', 'DeliverController', 'InvoiceController',
-        'MarkPaidController', 'OrderController'],
+        'MarkPaidController', 'OrderController', 'SecurityController'],
     name: 'MyApp',
     // autoCreateViewport:true,
     launch: function () {

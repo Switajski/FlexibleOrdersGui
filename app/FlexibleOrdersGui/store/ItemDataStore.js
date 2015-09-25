@@ -1,6 +1,6 @@
 Ext.define('MyApp.store.ItemDataStore', {
     extend: 'Ext.data.Store',
-    customurl: '/FlexibleOrders/reportitems/ordered',
+    customurl: constants.REST_BASE_URL +'reportitems/ordered',
     custommodel: 'MyApp.model.ItemData',
     customstoreid: 'ItemDataStore',
     requires: ['MyApp.model.ItemData'],
@@ -26,7 +26,7 @@ Ext.define('MyApp.store.ItemDataStore', {
                 api: {
                     read: this.customurl,
                     update: this.customurl,
-                    destroy: '/FlexibleOrders/transitions/deleteOrder',
+                    destroy: constants.REST_BASE_URL +'transitions/deleteOrder',
                     create: this.customurl
                 },
                 headers: {

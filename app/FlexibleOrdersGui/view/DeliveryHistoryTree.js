@@ -19,7 +19,7 @@ Ext.define('MyApp.view.DeliveryHistoryTree', {
 
     },
     onitemdblclick: function (grid, record, a, index) {
-        var win = window.open('/FlexibleOrders/reports/' + record.data.id
+        var win = window.open(constants.REST_BASE_URL + 'reports/' + record.data.id
             + '.pdf', '_blank');
         win.focus();
     }

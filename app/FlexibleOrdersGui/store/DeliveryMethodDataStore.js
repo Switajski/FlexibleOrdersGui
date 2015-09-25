@@ -1,6 +1,6 @@
 Ext.define('MyApp.store.DeliveryMethodDataStore', {
     extend: 'Ext.data.Store',
-    customurl: '/FlexibleOrders/deliverymethods/json',
+    customurl: constants.REST_BASE_URL +'deliverymethods/json',
     requires: ['MyApp.model.DeliveryMethodData'],
 
     constructor: function (cfg) {
@@ -12,7 +12,7 @@ Ext.define('MyApp.store.DeliveryMethodDataStore', {
             pageSize: 1000,
             proxy: {
                 type: 'ajax',
-                url: '/FlexibleOrders/customers/json',
+                url: constants.REST_BASE_URL + 'customers/json',
                 headers: {
                     accept: 'application/json'
                 },
@@ -22,9 +22,9 @@ Ext.define('MyApp.store.DeliveryMethodDataStore', {
                 },
                 api: {
                     read: this.customurl,
-                    update: "/FlexibleOrders/deliverymethods/udpate",
+                    update: constants.REST_BASE_URL + 'deliverymethods/udpate',
                     destroy: this.customurl,
-                    create: "/FlexibleOrders/deliverymethods/create"
+                    create: constants.REST_BASE_URL + 'deliverymethods/create'
                 },
                 writer: {
                     type: 'json',

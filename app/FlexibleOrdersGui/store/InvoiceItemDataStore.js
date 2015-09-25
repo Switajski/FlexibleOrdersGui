@@ -1,7 +1,7 @@
 Ext.define('MyApp.store.InvoiceItemDataStore', {
     extend: 'MyApp.store.ItemDataStore',
     alias: 'widget.InvoiceItemDataStore',
-    customurl: '/FlexibleOrders/reportitems/listAllToBeProcessed',
+    customurl: constants.REST_BASE_URL +'reportitems/listAllToBeProcessed',
     customstoreid: 'InvoiceItemDataStore',
     groupField: 'documentNumber'
 });

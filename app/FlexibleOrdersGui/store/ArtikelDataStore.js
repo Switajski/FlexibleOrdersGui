@@ -12,7 +12,7 @@ Ext.define('MyApp.store.ArtikelDataStore', {
             pageSize: 100,
             proxy: {
                 type: 'ajax',
-                url: '/FlexibleOrders/products/listFromMagento',
+                url: constants.REST_BASE_URL + 'products/listFromMagento',
                 headers: {
                     accept: 'application/json'
                 },

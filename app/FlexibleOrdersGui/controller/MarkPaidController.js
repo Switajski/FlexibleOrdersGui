@@ -15,7 +15,7 @@ Ext.define('MyApp.controller.MarkPaidController', {
 		if (event == "ok") {
 
 			var request = Ext.Ajax.request({
-				url : '/FlexibleOrders/transitions/markPaid',
+				url : constants.REST_BASE_URL + 'transitions/markPaid',
 				params : {
 					id : record.data.id,
 					productNumber : record.data.product,

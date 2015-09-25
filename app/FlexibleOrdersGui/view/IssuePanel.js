@@ -13,7 +13,7 @@ Ext.define('MyApp.view.IssuePanel', {
         dock: 'top',
         items: [{
             id: 'ShowSums',
-            icon: '/FlexibleOrders/images/update.png',
+            icon: constants.RESOURCES_BASE_URL + 'images/update.png',
             text: 'Offene Betr&auml;ge anzeigen',
             scope: this
         }]

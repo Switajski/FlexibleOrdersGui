@@ -56,7 +56,7 @@ Ext.define('MyApp.controller.AgreementController', {
 		if (event == "ok") {
 
 			var request = Ext.Ajax.request({
-				url : '/FlexibleOrders/transitions/agree',
+				url : constants.REST_BASE_URL + 'transitions/agree',
 				params : {
 					orderAgreementNumber : form.getValues().orderAgreementNumber,
 					orderConfirmationNumber : form.baseParams.orderConfirmationNumber

@@ -105,7 +105,7 @@ Ext.define('MyApp.view.IssueWindow', {
             sortable: false,
             menuDisabled: true,
             items: [{
-                icon: '/FlexibleOrders/images/delete.png',
+                icon: constants.RESOURCES_BASE_URL + 'images/delete.png',
                 tooltip: 'Position l&ouml;schen',
                 scope: this,
                 handler: function (grid, rowIndex) {

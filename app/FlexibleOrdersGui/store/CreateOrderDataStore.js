@@ -1,6 +1,6 @@
 Ext.define('MyApp.store.CreateOrderDataStore', {
     extend: 'Ext.data.Store',
-    customurl: '/FlexibleOrders/transitions/order',
+    customurl: constants.REST_BASE_URL +'transitions/order',
     custommodel: 'MyApp.model.ItemData',
     customstoreid: 'CreateOrderDataStore',
     requires: ['MyApp.model.ItemData'],

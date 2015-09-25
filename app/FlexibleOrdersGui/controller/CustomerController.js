@@ -124,7 +124,7 @@ Ext.define('MyApp.controller.CustomerController', {
 
 		amountRequests.forEach(function(amountRequest) {
 			Ext.Ajax.request({
-				url : '/FlexibleOrders/statistics/openAmount',
+				url : constants.REST_BASE_URL + 'statistics/openAmount',
 				method : 'GET',
 				params : {
 					state : amountRequest.state

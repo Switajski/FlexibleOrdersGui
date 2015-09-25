@@ -11,7 +11,6 @@ Ext.define('MyApp.store.CountryDataStore', {
             pageSize: 1000,
             proxy: {
                 type: 'ajax',
-                url: '/FlexibleOrders/country',
                 headers: {
                     accept: 'application/json'
                 },
@@ -20,7 +19,7 @@ Ext.define('MyApp.store.CountryDataStore', {
                     root: 'data'
                 },
                 api: {
-                    read: '/FlexibleOrders/country'
+                    read: constants.REST_BASE_URL +'country'
                 },
                 writer: {
                     type: 'json',

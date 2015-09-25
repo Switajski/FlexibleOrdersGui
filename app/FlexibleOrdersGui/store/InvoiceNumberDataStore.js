@@ -16,7 +16,7 @@ Ext.define('MyApp.store.InvoiceNumberDataStore', {
                     create: 'POST'
                 },
                 type: 'ajax',
-                url: '/FlexibleOrders/reportitems/listInvoiceNumbers',
+                url: constants.REST_BASE_URL + 'reportitems/listInvoiceNumbers',
                 headers: {
                     accept: 'application/json'
                 },

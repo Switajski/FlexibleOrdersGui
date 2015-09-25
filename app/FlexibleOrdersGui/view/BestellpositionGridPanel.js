@@ -34,13 +34,13 @@ Ext.define('MyApp.view.BestellpositionGridPanel', {
                 {
                     itemid: 'add',
                     dock: 'top',
-                    icon: '/FlexibleOrders/images/add.png',
+                    icon: constants.RESOURCES_BASE_URL + 'images/add.png',
                     text: 'hinzuf&uuml;gen',
                     scope: this,
                     handler: this.onAddClick
                 }, {
                     itemid: 'delete',
-                    icon: '/FlexibleOrders/images/delete.png',
+                    icon: constants.RESOURCES_BASE_URL + 'images/delete.png',
                     text: 'l&ouml;schen',
                     scope: this,
                     handler: this.onDeleteClick

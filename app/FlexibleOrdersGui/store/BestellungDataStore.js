@@ -1,10 +1,9 @@
 Ext.define('MyApp.store.BestellungDataStore', {
     extend: 'Ext.data.Store',
-
     requires: ['MyApp.model.BestellungData'],
-
     constructor: function (cfg) {
         var me = this;
+        var url = constants.REST_BASE_URL + 'reports/json';
         cfg = cfg || {};
         me.callParent([Ext.apply({
             model: 'MyApp.model.BestellungData',
@@ -22,10 +21,10 @@ Ext.define('MyApp.store.BestellungDataStore', {
                     create: 'POST'
                 },
                 api: {
-                    read: '/FlexibleOrders/reports/json',
-                    update: '/FlexibleOrders/report/json',
-                    destroy: '/FlexibleOrders/report/json',
-                    create: '/FlexibleOrders/report/json'
+                    read: url,
+                    update: url,
+                    destroy: url,
+                    create: url
                 },
                 reader: {
                     type: 'json',

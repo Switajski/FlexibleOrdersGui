@@ -25,7 +25,7 @@ Ext.define('MyApp.view.PositionGridPanel', {
     alias: 'widget.PositionGrid',
     title: "Abstrakte Positionen - (abstract items)",
     customIsFirstPanel: true,
-    customicon: '/FlexibleOrders/images/new_rechnung.png',
+    customicon: constants.RESOURCES_BASE_URL + 'images/new_rechnung.png',
     initComponent: function () {
         var me = this;
         this.editing = Ext.create('Ext.grid.plugin.CellEditing');
@@ -111,7 +111,7 @@ Ext.define('MyApp.view.PositionGridPanel', {
                 width: 30,
                 sortable: false,
                 items: [{
-                    icon: '/FlexibleOrders/images/list.png',
+                    icon: constants.RESOURCES_BASE_URL + 'images/list.png',
                     tooltip: 'Lieferhistorie anschauen',
                     scope: this,
                     handler: this.onDeliveryHistoryClick
@@ -121,7 +121,7 @@ Ext.define('MyApp.view.PositionGridPanel', {
                 width: 30,
                 sortable: false,
                 items: [{
-                    icon: '/FlexibleOrders/images/pdf_button.png',
+                    icon: constants.RESOURCES_BASE_URL + 'images/pdf_button.png',
                     tooltip: 'Pdf anzeigen',
                     scope: this,
                     handler: this.onPdfClick
@@ -132,7 +132,7 @@ Ext.define('MyApp.view.PositionGridPanel', {
                 sortable: false,
                 menuDisabled: true,
                 items: [{
-                    icon: '/FlexibleOrders/images/delete.png',
+                    icon: constants.RESOURCES_BASE_URL + 'images/delete.png',
                     tooltip: 'Dokument l&ouml;schen',
                     scope: this,
                     handler: this.onRemoveClick
@@ -153,7 +153,7 @@ Ext.define('MyApp.view.PositionGridPanel', {
     },
 
     onPdfClick: function (view, a, b, column, event, record, f) {
-        var win = window.open('/FlexibleOrders/reports/'
+        var win = window.open(constants.REST_BASE_URL + 'reports/'
             + record.data.documentNumber + '.pdf', '_blank');
         win.focus();
     },
@@ -176,7 +176,7 @@ Ext.define('MyApp.view.PositionGridPanel', {
         // TODO: this is hacking
         var dhPanel = Ext.create('MyApp.view.DeliveryHistoryPanel', {});
         store = dhPanel.items.items[0].getStore();
-        store.getProxy().url = '/FlexibleOrders/deliveryHistory/byReportItemId/'
+        store.getProxy().url = constants.REST_BASE_URL + 'deliveryHistory/byReportItemId/'
             + record.data.id;
         store.reload();
         dhPanel.show();

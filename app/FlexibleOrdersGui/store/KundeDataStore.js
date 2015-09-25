@@ -1,6 +1,6 @@
 Ext.define('MyApp.store.KundeDataStore', {
     extend: 'Ext.data.Store',
-    customurl: '/FlexibleOrders/customers/json',
+    customurl: constants.REST_BASE_URL +'customers/json',
     requires: ['MyApp.model.KundeData'],
 
     constructor: function (cfg) {
@@ -12,7 +12,7 @@ Ext.define('MyApp.store.KundeDataStore', {
             pageSize: 1000,
             proxy: {
                 type: 'ajax',
-                url: '/FlexibleOrders/customers/json',
+                url: constants.REST_BASE_URL + 'customers/json',
                 headers: {
                     accept: 'application/json'
                 },
@@ -22,9 +22,9 @@ Ext.define('MyApp.store.KundeDataStore', {
                 },
                 api: {
                     read: this.customurl,
-                    update: "/FlexibleOrders/customers/udpate",
+                    update: constants.REST_BASE_URL + 'customers/udpate',
                     destroy: this.customurl,
-                    create: "/FlexibleOrders/customers/create"
+                    create: constants.REST_BASE_URL + 'customers/create'
                 },
                 writer: {
                     type: 'json',

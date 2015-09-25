@@ -1,4 +1,5 @@
 Ext.define('MyApp.view.MainPanel', {
+    id : 'MainPanel',
     extend: 'Ext.panel.Panel',
     frame: false,
     layout: {
@@ -13,22 +14,22 @@ Ext.define('MyApp.view.MainPanel', {
         dock: 'top',
         items: [{
             id: 'ErstelleBestellungButton',
-            icon: '/FlexibleOrders/images/add.png',
+            icon: constants.RESOURCES_BASE_URL + 'images/add.png',
             text: 'erstelle Bestellung',
             scope: this
         }, {
             id: 'CreateCustomerButton',
-            icon: '/FlexibleOrders/images/add.png',
+            icon: constants.RESOURCES_BASE_URL + 'images/add.png',
             text: 'erstelle Kunden',
             scope: this
         }, {
             id: 'UpdateCustomerButton',
-            icon: '/FlexibleOrders/images/update.png',
+            icon: constants.RESOURCES_BASE_URL + 'images/update.png',
             text: 'Kunden bearbeiten',
             scope: this
         }, {
             id: 'ShowSums',
-            icon: '/FlexibleOrders/images/update.png',
+            icon: constants.RESOURCES_BASE_URL + 'images/update.png',
             text: 'Offene Betr&auml;ge anzeigen',
             scope: this
         }]
@@ -50,7 +51,7 @@ Ext.define('MyApp.view.MainPanel', {
                 }, {
                     xtype: 'OrderItemGrid',
                     store: 'ItemDataStore',
-                    customurl: '/FlexibleOrders/customers/json/getItems'
+                    customurl: constants.REST_BASE_URL + 'customers/json/getItems'
                 }, {
                     xtype: 'splitter'
                 }, {
