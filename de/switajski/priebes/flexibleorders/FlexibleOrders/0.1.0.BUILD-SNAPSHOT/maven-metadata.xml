@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>de.switajski.priebes.flexibleorders</groupId>
+  <artifactId>FlexibleOrders</artifactId>
+  <version>0.1.0.BUILD-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20151004.141627</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20151004141627</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>war</extension>
+        <value>0.1.0.BUILD-20151004.141627-1</value>
+        <updated>20151004141627</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.1.0.BUILD-20151004.141627-1</value>
+        <updated>20151004141627</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
