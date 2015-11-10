@@ -54,7 +54,7 @@ Ext.define('MyApp.controller.SecurityController', {
             },
             failure: function (response, options) {
                 // Not authenticated - show login form
-                if (response.status === 403) {
+                if (response.status === 401) {
                     me.showLogin();
                 } else if (response.status === 404) {
                     Ext.Msg.alert("Unerwarteter Fehler - URL nicht gefunden: " + response.status);
