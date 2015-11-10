@@ -1,0 +1,30 @@
+.flag {
+    height: 11px;
+    width: 16px;
+}
+
+tr .normal-row {
+    background-color:white;
+}
+
+tr .emphasized-row{
+    background-color: #E3FFE5;
+}
+
+tr .warning-row{
+    background-color: #FDFFEA;
+}
+#OrderItemGrid-1011_header{
+    background-image:none;
+    background-color:#CBF3CC;
+}
+#ShippingItemGrid_header{
+    background-image:none;
+    background-color:#FFF1B8;
+}
+#DeliveryNotesItemGrid_header_hd {
+}
+#InvoiceItemGrid_header {
+    background-image:none;
+    background-color:#FFD0D0;
+}
