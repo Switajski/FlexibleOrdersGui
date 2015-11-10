@@ -5,7 +5,7 @@ Ext.Loader.setConfig({
 
 Ext.define('constants', {
     singleton: true,
-    REST_BASE_URL: ':8080/FlexibleOrders/',
+    REST_BASE_URL: 'http://' + window.location.hostname + ':8080/FlexibleOrders/',
     RESOURCES_BASE_URL: 'FlexibleOrdersGui/'
 });
 
