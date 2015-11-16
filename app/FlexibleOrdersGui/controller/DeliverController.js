@@ -85,6 +85,7 @@ Ext.define('MyApp.controller.DeliverController', {
 					trackNumber : form.getValues().trackNumber,
 					created : form.getValues().created,
 					showPricesInDeliveryNotes : form.getValues().showPricesInDeliveryNotes,
+					ignoreContradictoryExpectedDeliveryDates : form.getValues().ignoreContradictoryExpectedDeliveryDates,
 					items : Ext.pluck(createDeliveryNotesStore.data.items,
 							'data')
 				},

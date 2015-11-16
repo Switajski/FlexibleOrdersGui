@@ -3,7 +3,6 @@ Ext.define('MyApp.view.InvoiceItemGridPanel', {
     alias: 'widget.InvoiceItemGrid',
     title: "Rechnungen",
     id: 'InvoiceItemGrid',
-    customicon: constants.RESOURCES_BASE_URL + 'images/new_ab.png',
     onActionClick: function (view, a, b, column, event, record, f) {
         var anr = record.data.invoiceNumber;
 

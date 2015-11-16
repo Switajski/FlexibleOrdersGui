@@ -39,6 +39,9 @@ Ext.define('MyApp.model.ItemData', {
     }, {
         name: 'status'
     }, {
+        name: 'pending',
+        type: 'bool'
+    }, {
         name: 'expectedDelivery',
         format: 'd/m/Y'
     }, {

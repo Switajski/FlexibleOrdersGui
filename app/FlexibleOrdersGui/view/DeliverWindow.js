@@ -8,7 +8,7 @@ Ext
         alias: 'widget.DeliverWindow',
         layout: 'fit',
         defaultInvoiceNumber: 0,
-        width: 500,
+        width: 800,
         record: null,
         closeAction: 'destroy',
         bottomGrid: {
@@ -36,7 +36,8 @@ Ext
                     dataIndex: 'product',
                     text: 'Artikel',
                     displayField: 'name',
-                    valueField: 'productNumber'
+                    valueField: 'productNumber',
+                    width: 70
                 },
                 {
                     xtype: 'gridcolumn',
@@ -52,6 +53,37 @@ Ext
                 },
                 {
                     xtype: 'gridcolumn',
+                    dataIndex: 'packageNumber',
+                    width: 50,
+                    text: 'Paketnr.',
+                    editor: {
+                        xtype: 'textfield',
+                    }
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'trackNumber',
+                    width: 130,
+                    text: 'Sendungsnr.',
+                    editor: {
+                        xtype: 'textfield',
+                    }
+                },
+                {
+                    xtype: 'checkcolumn',
+                    dataIndex: 'pending',
+                    width: 50,
+                    text: 'Ausst.'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'quantity',
+                    width: 40,
+                    text: 'Ur.M.',
+                    align: 'right'
+                },
+                {
+                    xtype: 'gridcolumn',
                     dataIndex: 'quantityLeft',
                     width: 50,
                     text: 'Menge',
@@ -59,7 +91,35 @@ Ext
                         xtype: 'numberfield',
                         allowBlank: false,
                         minValue: 1
-                    }
+                    },
+                    align: 'right'
+                },
+                {
+                    xtype: 'actioncolumn',
+                    width: 30,
+                    sortable: false,
+                    menuDisabled: true,
+                    items: [{
+                        icon: constants.RESOURCES_BASE_URL + 'images/split.png',
+                        tooltip: 'Position teilen',
+                        scope: this,
+                        handler: function (grid, rowIndex) {
+                            var store = Ext.getStore('CreateDeliveryNotesItemDataStore');
+
+                            var srcRecord = store.getAt(rowIndex);
+                            var copiedRec = srcRecord.copy(); // clone the record
+                            //generate id
+                            Ext.data.Model.id(copiedRec);
+
+                            var quantityLeft = srcRecord.get('quantityLeft');
+                            var div = Math.floor(quantityLeft / 2);
+                            var rem = quantityLeft % 2;
+                            srcRecord.set('quantityLeft', div);
+                            copiedRec.set('quantityLeft', div + rem);
+                            copiedRec.set('quantity', null);
+                            store.insert(rowIndex + 1, copiedRec);
+                        }
+                    }]
                 },
                 {
                     xtype: 'actioncolumn',
@@ -120,7 +180,7 @@ Ext
                             xtype: 'datefield',
                             format: 'd/m/Y',
                             allowBlank: true,
-                            fieldLabel: 'Lieferdatum',
+                            fieldLabel: 'Lieferscheindatum',
                             name: 'created'
                         },
                         {
@@ -128,7 +188,9 @@ Ext
                             fieldLabel: 'ignoriere abweich. Liefertermine',
                             labelWidth: 185,
                             margins: '0 0 0 6',
-                            checked: false
+                            checked: false,
+                            name: 'ignoreContradictoryExpectedDeliveryDates',
+                            inputValue:true
                         }]
                 }, {
                     xtype: 'fieldcontainer',
@@ -172,7 +234,7 @@ Ext
                     }]
                 }, {
                     xtype: 'checkbox',
-                    fieldLabel: 'Preise auf AB anzeigen',
+                    fieldLabel: 'Preise auf Lieferschein anzeigen',
                     name: 'showPricesInDeliveryNotes',
                     labelWidth: 185,
                     margins: '0 0 0 6',

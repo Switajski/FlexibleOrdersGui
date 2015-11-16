@@ -13,7 +13,7 @@ Ext.define('MyApp.store.ItemDataStore', {
             model: this.custommodel,
             storeId: this.customstoreid,
             autoLoad: false,
-            pageSize: 20,
+            pageSize: 100,
             remoteFilter: true,
             proxy: {
                 type: 'ajax',
