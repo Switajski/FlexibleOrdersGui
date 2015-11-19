@@ -110,33 +110,6 @@ Ext.define('MyApp.controller.MyController', {
         this.getStore('CountryDataStore').load();
     },
 
-    onSelectionchange: function (view, selections, options) {
-        if (view.getStore().storeId != "BestellungDataStore")
-            return;
-        if (selections.length == 0)
-            return;
-    },
-
-    getButtons: function () {
-        var buttons = {
-            createCustomer: Ext.getCmp('CreateCustomerButton'),
-            deleteBp: Ext.getCmp('DeleteBpButton'),
-            erstelleBpButton: Ext.getCmp('ErstelleBpButton'),
-            deleteBestellung: Ext.getCmp('DeleteBestellungButton'),
-            erstelleBestellungButton: Ext.getCmp('ErstelleBestellungButton'),
-            abBestellungButton: Ext.getCmp('AbBestellungButton'),
-            rechnungBestellungButton: Ext.getCmp('RechnungBestellungButton'),
-            bezahltBestellungButton: Ext.getCmp('BezahltBestellungButton'),
-            stornoBestellungButton: Ext.getCmp('StornoBestellungButton'),
-            deleteBestellungButton: Ext.getCmp('DeleteBestellungButton'),
-            bestellungPdfButton: Ext.getCmp('BestellungPdf'),
-            abPdfButton: Ext.getCmp('AbPdf'),
-            rechnungPdfButton: Ext.getCmp('RechnungPdf'),
-            offeneBpPdfButton: Ext.getCmp('OffeneBpPdf')
-        };
-        return buttons;
-    },
-
     retrieveChosenCustomerSavely: function () {
         customerNo = Ext.getCmp('mainCustomerComboBox').getValue();
         if (customerNo == 0 || customerNo == "" || customerNo == null) {
@@ -166,13 +139,6 @@ Ext.define('MyApp.controller.MyController', {
             Ext.MessageBox
                 .alert('Hinweis',
                 'Bestellung schon best&auml;tigt. Nur noch Storno ist m&ouml;glich.');
-    },
-
-    getBpSelection: function () {
-        var bpGridPanel = Ext.getCmp('BestellpositionGridPanel');
-        var selectionModel = bpGridPanel.getSelectionModel();
-        var bp = selectionModel.getSelection()[0];
-        return bp;
     },
 
     showBestellundPdf: function (button, event, options) {

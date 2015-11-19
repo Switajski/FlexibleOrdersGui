@@ -215,24 +215,6 @@ Ext
 
                     }]
                 }, {
-                    xtype: 'fieldcontainer',
-                    layout: 'hbox',
-                    defaults: {
-                        flex: 1
-                    },
-                    items: [{
-                        xtype: 'textfield',
-                        fieldLabel: 'Paketnummer',
-                        name: 'packageNumber',
-                        allowBlank: true
-                    }, {
-                        xtype: 'textfield',
-                        fieldLabel: 'Sendungsnr.',
-                        name: 'trackNumber',
-                        margins: '0 0 0 6',
-                        allowBlank: true
-                    }]
-                }, {
                     xtype: 'checkbox',
                     fieldLabel: 'Preise auf Lieferschein anzeigen',
                     name: 'showPricesInDeliveryNotes',

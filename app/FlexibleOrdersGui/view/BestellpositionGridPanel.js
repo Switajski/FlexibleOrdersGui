@@ -98,7 +98,7 @@ Ext.define('MyApp.view.BestellpositionGridPanel', {
                 text: 'Rechnung'
             }, {
                 xtype: 'gridcolumn',
-                dataIndex: 'quantity',
+                dataIndex: 'quantityLeft',
                 width: 75,
                 text: 'Menge',
                 editor: {
@@ -172,7 +172,7 @@ Ext.define('MyApp.view.BestellpositionGridPanel', {
             }), edit = this.editing;
             rec.data.orderNumber = bestellnr;
             rec.data.customer = customer;
-            rec.data.quantity = 1;
+            rec.data.quantityLeft = 1;
             this.store.insert(0, rec);
         }
     },

@@ -104,8 +104,8 @@ Ext.define('MyApp.view.OrderWindow', {
                 store: 'ArtikelDataStore',
                 tpl: Ext
                     .create(
-                    'Ext.XTemplate',
-                    '<tpl for="."><div class="x-boundlist-item" >{productNumber} - {name}</div></tpl>'),
+                        'Ext.XTemplate',
+                        '<tpl for="."><div class="x-boundlist-item" >{productNumber} - {name}</div></tpl>'),
                 displayTpl: Ext.create('Ext.XTemplate', '<tpl for=".">',
                     '{productNumber} - {name}', '</tpl>'),
                 listeners: {
@@ -149,7 +149,7 @@ Ext.define('MyApp.view.OrderWindow', {
             }
         }, {
             xtype: 'gridcolumn',
-            dataIndex: 'quantity',
+            dataIndex: 'quantityLeft',
             width: 75,
             text: 'Menge',
             value: 1,
@@ -157,7 +157,13 @@ Ext.define('MyApp.view.OrderWindow', {
             editor: {
                 xtype: 'numberfield',
                 allowBlank: false,
-                minValue: 1
+                minValue: 1,
+                onChange: function () {
+                    console.log("asdf");
+                }
+            },
+            onChange: function () {
+                console.log("asdf");
             }
         }, {
             xtype: 'numbercolumn',

@@ -19,7 +19,14 @@ Ext.define('MyApp.controller.OrderController', {
 		var form = Ext.getCmp('OrderWindow').down('form').getForm();
 		var record = form.getRecord();
 
-		var request = Ext.Ajax.request({
+		var items = Ext.pluck(
+				Ext.getCmp('CreateOrderGrid').getStore().data.items,
+				'data');
+		items.forEach(function(entry) {
+			entry.quantity = entry.quantityLeft;
+		});
+
+		Ext.Ajax.request({
 			url : constants.REST_BASE_URL + 'transitions/order',
 			jsonData : {
 				orderNumber : form.getValues().order,
@@ -34,14 +41,11 @@ Ext.define('MyApp.controller.OrderController', {
 				postalCode : record.data.postalCode,
 				city : record.data.city,
 				country : record.data.country,
-				items : Ext.pluck(
-						Ext.getCmp('CreateOrderGrid').getStore().data.items,
-						'data')
+				items : items
 			},
-			success : function(response) {
-				var text = response.responseText;
+			success : function() {
 				// Sync
-				controller = MyApp.getApplication().getController(
+				var controller = MyApp.getApplication().getController(
 						'MyController');
 				controller.sleep(500);
 				controller.syncAll();
@@ -68,7 +72,7 @@ Ext.define('MyApp.controller.OrderController', {
 		orderWindow.show();
 		orderWindow.focus();
 
-		var request = Ext.Ajax.request({
+		Ext.Ajax.request({
 			url : constants.REST_BASE_URL + 'order/generateOrderNumber',
 			success : function(response) {
 				Ext.getCmp('OrderWindow').down('ordernumbercombobox').setValue(
