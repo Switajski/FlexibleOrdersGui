@@ -49,7 +49,7 @@ Ext.define('MyApp.view.CreateCustomerWindow', {
                             flex: 2,
                             fieldLabel: 'E-Mail',
                             labelWidth: 50,
-                            vtype: 'email'
+                            //vtype: 'email'
                         }]
                     }, {
                         xtype: 'fieldcontainer',
@@ -195,7 +195,12 @@ Ext.define('MyApp.view.CreateCustomerWindow', {
                             name: 'country',
                             valueField: 'id',
                             fieldLabel: 'Land',
-                            labelWidth: 35
+                            labelWidth: 35,
+                            listeners: {
+                                scope: this,
+                                change: this.onMailingAddrFieldChange
+                            },
+                            billingFieldName: 'dcountry'
                         }]
                     }]
                 }, {
