@@ -16,7 +16,7 @@ Ext.application({
         'BestellungDataStore', 'ItemDataStore', 'InvoiceItemDataStore',
         'KundeDataStore', 'ShippingItemDataStore'],
     views: ['MainPanel', 'TransitionWindow', 'ConfirmWindow', 'IssueWindow',
-        'DeliverWindow', 'PositionGridPanel', 'AgreementItemGridPanel',
+        'DeliverWindow', 'PositionGridPanel',
         'OrderItemGridPanel', 'ShippingItemGridPanel',
         'InvoiceItemGridPanel', 'ArchiveItemGridPanel', 'CustomerComboBox'],
     autoCreateViewport: false,
