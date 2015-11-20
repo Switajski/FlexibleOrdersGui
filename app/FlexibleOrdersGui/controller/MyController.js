@@ -231,6 +231,7 @@ Ext.define('MyApp.controller.MyController', {
         statesToGrids = [{
             state: 'agreed',
             grid: 'AgreementItemGrid',
+            //TODO: 'text' changed. Make the appending of open items dependent from current title
             text: 'Auftr&auml;e'
         }, {
             state: 'confirmed',
