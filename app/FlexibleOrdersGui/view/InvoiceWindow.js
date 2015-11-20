@@ -94,12 +94,7 @@ Ext.define('MyApp.view.InvoiceWindow', {
             xtype: 'gridcolumn',
             dataIndex: 'quantityLeft',
             width: 50,
-            text: 'Menge',
-            editor: {
-                xtype: 'numberfield',
-                allowBlank: false,
-                minValue: 1
-            }
+            text: 'Menge'
         }, {
             xtype: 'gridcolumn',
             dataIndex: 'priceNet',
