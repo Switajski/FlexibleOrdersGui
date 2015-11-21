@@ -76,11 +76,6 @@ Ext.define('MyApp.view.PositionGridPanel', {
                 width: 35,
                 text: 'Anz.'
             }, {
-                xtype: 'gridcolumn',
-                dataIndex: 'quantityLeft',
-                width: 38,
-                text: 'offen'
-            }, {
                 xtype: 'numbercolumn',
                 dataIndex: 'priceNet',
                 width: 45,
