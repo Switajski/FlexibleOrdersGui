@@ -32,6 +32,11 @@ Ext.define('MyApp.view.MainPanel', {
             icon: constants.RESOURCES_BASE_URL + 'images/update.png',
             text: 'Offene Betr&auml;ge anzeigen',
             scope: this
+        }, {
+            id: 'ShowToBeShipped',
+            icon: constants.RESOURCES_BASE_URL + 'images/pdf_button.png',
+            text: 'Pdf der ausstehenden Artikel',
+            scope: this
         }]
 
     }],

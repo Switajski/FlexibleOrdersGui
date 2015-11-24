@@ -72,12 +72,6 @@ Ext.define('MyApp.controller.MyController', {
             '#DeleteBestellungButton': {
                 click: this.deleteBestellungDialog
             },
-            '#SubmitBpButton': {
-                click: this.addBp
-            },
-            '#AbBestellungButton': {
-                click: this.bestaetigeAuftragDialog
-            },
             '#BestellungPdf': {
                 click: this.showBestellundPdf
             },
@@ -87,14 +81,11 @@ Ext.define('MyApp.controller.MyController', {
             '#RechnungPdf': {
                 click: this.showRechnungPdf
             },
-            '#CreateShippingCostsButton': {
-                click: this.createShippingCosts
-            },
-            '#AddShippingCostsButton': {
-                click: this.addShippingCosts
-            },
             '#ShowSums': {
                 click: this.onShowSums
+            },
+            '#ShowToBeShipped':{
+                click: this.onShowToBeShipped
             }
         });
 
@@ -141,21 +132,8 @@ Ext.define('MyApp.controller.MyController', {
                 'Bestellung schon best&auml;tigt. Nur noch Storno ist m&ouml;glich.');
     },
 
-    showBestellundPdf: function (button, event, options) {
-        var win = window.open('/leanorders/orders/' + this.activeBestellnr
-            + '.pdf', '_blank');
-        win.focus();
-    },
-
-    showAbPdf: function (button, event, options) {
-        var win = window.open('/leanorders/orderConfirmations/'
-            + this.activeBestellnr + '.pdf', '_blank');
-        win.focus();
-    },
-
-    showRechnungPdf: function (button, event, options) {
-        var win = window.open('/leanorders/invoices/' + this.activeBestellnr
-            + '.pdf', '_blank');
+    onShowToBeShipped: function (view, a, b, column, event, record, f){
+        var win = window.open(constants.REST_BASE_URL + '/ausstehendeArtikel.pdf', '_blank');
         win.focus();
     },
 
