@@ -72,15 +72,6 @@ Ext.define('MyApp.controller.MyController', {
             '#DeleteBestellungButton': {
                 click: this.deleteBestellungDialog
             },
-            '#BestellungPdf': {
-                click: this.showBestellundPdf
-            },
-            '#AbPdf': {
-                click: this.showAbPdf
-            },
-            '#RechnungPdf': {
-                click: this.showRechnungPdf
-            },
             '#ShowSums': {
                 click: this.onShowSums
             },
@@ -133,7 +124,12 @@ Ext.define('MyApp.controller.MyController', {
     },
 
     onShowToBeShipped: function (view, a, b, column, event, record, f){
-        var win = window.open(constants.REST_BASE_URL + '/ausstehendeArtikel.pdf', '_blank');
+        var string = '/ausstehendeArtikel.pdf';
+        var customerNumber = Ext.getCmp('mainCustomerComboBox').getValue();
+        if (customerNumber != null){
+            string = 'kunden/'+customerNumber+'/ausstehendeArtikel.pdf';
+        }
+        var win = window.open(constants.REST_BASE_URL + string, '_blank');
         win.focus();
     },
 
