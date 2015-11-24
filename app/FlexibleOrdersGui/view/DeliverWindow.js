@@ -212,6 +212,7 @@ Ext
                             xtype: 'numberfield',
                             fieldLabel: 'Versandkosten',
                             name: 'shipment',
+                            disable: true,
                             allowBlank: true,
                             allowDecimals: true,
                             margins: '0 0 0 6',
@@ -235,6 +236,7 @@ Ext
                             xtype: 'textfield',
                             fieldLabel: 'Sendungsnr.',
                             name: 'trackNumber',
+                            disable: true,
                             id: 'trackNumberField',
                             margins: '0 0 0 6',
                             allowBlank: true
