@@ -33,6 +33,7 @@ Ext.define('MyApp.controller.InvoiceController', {
                     .invoice2("ok", kunde, createInvoiceStore);
             }
         });
+
         kunde = Ext.getStore('KundeDataStore').findRecord("customerNumber",
             record.data.customerNumber);
         kundeId = kunde.data.customerNumber;
@@ -52,7 +53,8 @@ Ext.define('MyApp.controller.InvoiceController', {
             postalCode: kunde.data.postalCode,
             customerNumber: kunde.data.customerNumber,
             street: kunde.data.street,
-            paymentConditions: kunde.data.paymentConditions
+            paymentConditions: kunde.data.paymentConditions,
+            created: record.data.created
         });
         // somehow the id is deleted onShow
         Ext.getCmp('invoiceNumber').setValue(deliveryNotesNumber);
