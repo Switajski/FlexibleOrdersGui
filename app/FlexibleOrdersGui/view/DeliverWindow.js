@@ -64,7 +64,6 @@ Ext
                         dataIndex: 'trackNumber',
                         width: 130,
                         text: 'Sendungsnr.',
-                        disabled : true,
                         editor: {
                             xtype: 'textfield',
                         }
@@ -234,7 +233,7 @@ Ext
                             xtype: 'textfield',
                             fieldLabel: 'Sendungsnr.',
                             name: 'trackNumber',
-                            disable: true,
+                            disabled: true,
                             id: 'trackNumberField',
                             margins: '0 0 0 6',
                             allowBlank: true
