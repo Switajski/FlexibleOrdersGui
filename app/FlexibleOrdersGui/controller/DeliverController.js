@@ -43,10 +43,13 @@ Ext.define('MyApp.controller.DeliverController', {
         email = kunde.data.email;
 
         deliverWindow.show();
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
         deliverWindow.down('form').getForm().setValues({
             name1: kunde.data.name1,
             name2: kunde.data.name2,
             city: kunde.data.city,
+            created: tomorrow,
             country: kunde.data.country,
             email: kunde.data.email,
             firstName: kunde.data.firstName,

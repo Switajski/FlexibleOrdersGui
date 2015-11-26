@@ -19,7 +19,6 @@ Ext.define('MyApp.view.TransitionWindow', {
         flex: 1,
         store: 'CreateDeliveryNotesItemDataStore',
         title: "Lieferscheinpositionen",
-        features: null,
         selType: 'cellmodel',
         plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
             clicksToEdit: 1
@@ -28,8 +27,7 @@ Ext.define('MyApp.view.TransitionWindow', {
             ftype: 'grouping',
             groupHeaderTpl: '{columnName}: {name} ({rows.length} Position{[values.rows.length > 1 ? "en" : ""]}) {[values.rows[0].created]}',
             hideGroupedHeader: false,
-            startCollapsed: false
-            // id: 'orderNumber'
+            startCollapsed: true
         }],
         columns: [{
             xtype: 'gridcolumn',
@@ -142,6 +140,10 @@ Ext.define('MyApp.view.TransitionWindow', {
                     dock: 'bottom',
                     ui: 'footer',
                     items: ['->', {
+                        itemId: 'sumOfPositionGrid',
+                        text: 'Summe',
+                        scope: this
+                    },{
                         iconCls: 'icon-save',
                         itemId: 'save',
                         text: 'Speichern',

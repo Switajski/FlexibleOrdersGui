@@ -18,7 +18,6 @@ Ext
                 flex: 1,
                 store: 'CreateDeliveryNotesItemDataStore',
                 title: "Lieferscheinpositionen",
-                features: null,
                 selType: 'cellmodel',
                 plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
                     clicksToEdit: 1
@@ -28,7 +27,6 @@ Ext
                     groupHeaderTpl: '{columnName}: {name} ({rows.length} Position{[values.rows.length > 1 ? "en" : ""]}) {[values.rows[0].created]}',
                     hideGroupedHeader: false,
                     startCollapsed: false
-                    // id: 'orderNumber'
                 }],
                 columns: [
                     {
