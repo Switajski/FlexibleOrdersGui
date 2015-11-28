@@ -28,3 +28,6 @@ tr .warning-row{
     background-image:none;
     background-color:#FFD0D0;
 }
+#sumOfPositionGrid {
+    font-weight: bold;
+}

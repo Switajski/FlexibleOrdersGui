@@ -139,12 +139,15 @@ Ext.define('MyApp.view.TransitionWindow', {
                     xtype: 'toolbar',
                     dock: 'bottom',
                     ui: 'footer',
-                    items: ['->', {
-                        itemId: 'sumOfPositionGrid',
-                        text: 'Summe',
-                        scope: this
-                    },{
-                        iconCls: 'icon-save',
+                    items: ['->',{
+                        xtype: 'text',
+                        text: 'Summe der Positionen: ',
+                    }, '-', {
+                        xtype: 'text',
+                        id: 'sumOfPositionGrid',
+                        text: ''
+                    }, '-', {
+                        iconCls: constants.RESOURCES_BASE_URL + 'images/update.png',
                         itemId: 'save',
                         text: 'Speichern',
                         disabled: false,

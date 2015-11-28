@@ -14,9 +14,9 @@ var filters = {
     }]
 };
 
-Ext.define('MyApp.view.BestellpositionGridPanel', {
+Ext.define('MyApp.view.CreateOrderItemGridPanel', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.BestellpositionGrid',
+    alias: 'widget.CreateOrderItemGrid',
     // width: 250,
     // height: 300,
     requires: ['MyApp.model.ArtikelData',
@@ -52,13 +52,15 @@ Ext.define('MyApp.view.BestellpositionGridPanel', {
                 scope: this
             }],
 
-            features: [filters],
             columns: [{
                 xtype: 'gridcolumn',
                 dataIndex: 'product',
                 text: 'Artikel',
-                width: 200,
-                // name: 'productNumber',
+                width: 250,
+                renderer: function (value, metaData, record, row, col, store,
+                                    gridView) {
+                    return (value + ' - ' + record.data.productName);
+                },
                 editor: {
                     id: 'ArtikelComboBox',
                     xtype: 'combobox',
@@ -67,86 +69,85 @@ Ext.define('MyApp.view.BestellpositionGridPanel', {
                     enableRegEx: true,
                     allowBlank: false,
                     forceSelection: true,
-                    queryMode: 'local',
+                    loadingText: 'Sende Anfrage an Magento...',
+                    queryMode: 'remote',
                     store: 'ArtikelDataStore',
-                    tpl: Ext.create(
-                        'Ext.XTemplate',
-                        '<tpl for=".">',
-                        '<div class="x-boundlist-item">{productNumber} - {name}</div>',
-                        '</tpl>'),
+                    tpl: Ext
+                        .create(
+                            'Ext.XTemplate',
+                            '<tpl for="."><div class="x-boundlist-item" >{productNumber} - {name}</div></tpl>'),
                     displayTpl: Ext.create('Ext.XTemplate', '<tpl for=".">',
-                        '{productNumber} - {name}', '</tpl>')
+                        '{productNumber} - {name}', '</tpl>'),
+                    listeners: {
+                        'blur': function (xObject, state, eOpts) {
+                            rowPos = Ext.getCmp('CreateOrderGrid')
+                                .getSelectionModel().getCurrentPosition().row;
+                            data = Ext.getStore('ArtikelDataStore').query(
+                                'productNumber', xObject.value).getAt(0).data;
+
+                            createOrderStore = Ext.data.StoreMgr
+                                .lookup('CreateOrderDataStore');
+                            record = createOrderStore.getAt(rowPos);
+                            if (data.recommendedPriceNet != null)
+                                record.set('priceNet', data.recommendedPriceNet.value);
+                            record.set('productName', data.name);
+                            me.onOrderSumChange();
+                        }
+                    }
+                }
+            }, {
+                xtype: 'gridcolumn',
+                dataIndex: 'productName',
+                width: 150,
+                text: 'Artikelname',
+                filter: {
+                    type: 'string'
+                    // , disabled: true
+                },
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: false
                 }
             }, {
                 xtype: 'gridcolumn',
                 dataIndex: 'orderNumber',
-                width: 75,
+                width: 100,
                 text: 'Bestellung',
                 filter: {
                     type: 'string'
-                    // , disabled: true
                 }
-            }, {
-                xtype: 'gridcolumn',
-                dataIndex: 'orderConfirmationNumber',
-                width: 75,
-                text: 'AB'
-            }, {
-                xtype: 'gridcolumn',
-                dataIndex: 'invoiceNumber',
-                width: 75,
-                text: 'Rechnung'
             }, {
                 xtype: 'gridcolumn',
                 dataIndex: 'quantityLeft',
                 width: 75,
                 text: 'Menge',
+                value: 1,
+                minValue: 1,
                 editor: {
                     xtype: 'numberfield',
                     allowBlank: false,
-                    minValue: 1
+                    minValue: 1,
+                    listeners : {
+                        blur: me.onOrderSumChange
+                    }
                 }
-            }, {
-                xtype: 'gridcolumn',
-                dataIndex: 'customer',
-                width: 50,
-                text: 'Kundenr'
             }, {
                 xtype: 'numbercolumn',
                 dataIndex: 'priceNet',
-                width: 75,
+                width: 100,
                 text: 'Preis Netto',
                 renderer: Ext.util.Format.euMoney,
                 editor: {
                     xtype: 'numberfield',
-                    allowBlank: true
-                }
-            }, {
-                xtype: 'gridcolumn',
-                dataIndex: 'status',
-                width: 75,
-                text: 'Status'
-            }, {
-                xtype: 'gridcolumn',
-                dataIndex: 'expectedDelivery',
-                text: 'Geplante Auslieferung',
-                width: 120,
-                format: 'd/m/Y',
-                editor: {
-                    xtype: 'datefield',
-                    format: 'd/m/Y',
-                    allowBlank: true,
-                    minValue: Ext.Date.format(new Date(), 'd/m/Y'),
-                    minText: 'Datum liegt in der Vergangenheit'
+                    allowBlank: false,
+                    listeners : {
+                        blur: me.onOrderSumChange
+                    }
                 }
             }]
         });
         me.callParent(arguments);
 
-    },
-
-    onSync: function () {
-        this.store.sync();
     },
 
     onAddClick: function () {
@@ -184,6 +185,17 @@ Ext.define('MyApp.view.BestellpositionGridPanel', {
     },
     getOrderNumber: function () {
         return Ext.ComponentQuery.query('combobox[xtype=ordernumbercombobox]')[0].rawValue;
+    },
+    onOrderSumChange: function () {
+        var sum = 0;
+        var items = Ext.getCmp('CreateOrderGrid').getStore().data.items;
+        for (var i in items) {
+            var data = items[i].data;
+            sum = sum + data.priceNet * data.quantityLeft;
+        }
+        var sumField = Ext.getCmp('sumOfPositionGrid');
+        sumField.setText(sum);
+        return data;
     }
 
 });

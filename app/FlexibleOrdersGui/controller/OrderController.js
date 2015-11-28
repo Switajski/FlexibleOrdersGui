@@ -94,7 +94,6 @@ Ext.define('MyApp.controller.OrderController', {
 				controller.syncAll();
 			}
 		});
-
 	}
 
 });
