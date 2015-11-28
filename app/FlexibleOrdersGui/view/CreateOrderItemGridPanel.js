@@ -17,7 +17,7 @@ var filters = {
 Ext.define('MyApp.view.CreateOrderItemGridPanel', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.CreateOrderItemGrid',
-    // width: 250,
+    width: 200,
     // height: 300,
     requires: ['MyApp.model.ArtikelData',
         'MyApp.store.CreateOrderDataStore',
@@ -51,7 +51,14 @@ Ext.define('MyApp.view.CreateOrderItemGridPanel', {
                 text: 'sync',
                 scope: this
             }],
-
+            selModel: {
+                columns: [
+                    {xtype : 'checkcolumn', text : 'Active', dataIndex : 'id'}
+                ],
+                listeners:{
+                    selectionchange: me.onOrderSumChange
+                }
+            },
             columns: [{
                 xtype: 'gridcolumn',
                 dataIndex: 'product',
@@ -98,7 +105,7 @@ Ext.define('MyApp.view.CreateOrderItemGridPanel', {
             }, {
                 xtype: 'gridcolumn',
                 dataIndex: 'productName',
-                width: 150,
+                flex: 1,
                 text: 'Artikelname',
                 filter: {
                     type: 'string'
@@ -107,14 +114,6 @@ Ext.define('MyApp.view.CreateOrderItemGridPanel', {
                 editor: {
                     xtype: 'textfield',
                     allowBlank: false
-                }
-            }, {
-                xtype: 'gridcolumn',
-                dataIndex: 'orderNumber',
-                width: 100,
-                text: 'Bestellung',
-                filter: {
-                    type: 'string'
                 }
             }, {
                 xtype: 'gridcolumn',
@@ -171,10 +170,11 @@ Ext.define('MyApp.view.CreateOrderItemGridPanel', {
             var rec = new MyApp.model.ItemData({
                 status: 'ORDERED'
             }), edit = this.editing;
-            rec.data.orderNumber = bestellnr;
             rec.data.customer = customer;
             rec.data.quantityLeft = 1;
-            this.store.insert(0, rec);
+            var lastIndex = this.store.data.items.length;
+            this.store.insert(lastIndex, rec);
+            this.selModel.select(this.store.data.items[lastIndex]);
         }
     },
     onDeleteClick: function () {
