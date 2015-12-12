@@ -77,6 +77,9 @@ Ext.define('MyApp.controller.MyController', {
             },
             '#ShowToBeShipped':{
                 click: this.onShowToBeShipped
+            },
+            'button[action=sendToDropbox]':{
+                click: this.onSendToDropbox
             }
         });
 
@@ -197,6 +200,35 @@ Ext.define('MyApp.controller.MyController', {
                     .getController('MyController');
                 controller.sleep(500);
                 controller.syncAll();
+            },
+            failure: function (response, opts) {
+                Ext.MessageBox.alert('Status', 'Konnte Dokument nicht l&oml;schen', response);
+            }
+        });
+    },
+
+    onSendToDropbox: function(button){
+        console.log(button.documentNumber);
+        var request = Ext.Ajax.request({
+            url: constants.REST_BASE_URL + 'dropbox/sendReport/' + button.documentNumber,
+            method: 'POST',
+            params: {
+                documentNumber: button.documentNumber
+            },
+            success: function (response) {
+                if (response.status == 210){ // redirect
+                    var obj = JSON.parse(response.responseText);
+                    console.log(obj);
+
+                    var src = obj.data;
+                    var win = window.open(src, '_blank');
+                    win.focus();
+                } else {
+                    Ext.MessageBox.alert('Status', 'In der Dropbox angekommen.');
+                }
+            },
+            failure: function (response, opts) {
+                Ext.MessageBox.alert('Status', 'Fehler', response);
             }
         });
     },
