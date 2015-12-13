@@ -189,11 +189,12 @@ Ext.define('MyApp.controller.MyController', {
         }
     },
 
-    deleteReport: function (varDocumentNumber) {
+    deleteReport: function (documentNumber) {
         var request = Ext.Ajax.request({
-            url: constants.REST_BASE_URL + 'transitions/deleteReport',
+            url: constants.REST_BASE_URL + 'transitions/Report/' + documentNumber,
+            method: 'DELETE',
             params: {
-                documentNumber: varDocumentNumber
+                documentNumber: documentNumber
             },
             success: function (response) {
                 controller = MyApp.getApplication()
@@ -202,7 +203,7 @@ Ext.define('MyApp.controller.MyController', {
                 controller.syncAll();
             },
             failure: function (response, opts) {
-                Ext.MessageBox.alert('Status', 'Konnte Dokument nicht l&oml;schen', response);
+                Ext.MessageBox.alert('Status', 'Konnte Dokument nicht l&ouml;schen', response);
             }
         });
     },

@@ -152,8 +152,14 @@ Ext.define('MyApp.view.PositionGridPanel', {
         this.onDeliveryHistoryClick(null, null, null, null, null, record);
     },
     onRemoveClick: function (view, a, b, column, event, record, f) {
-        MyApp.getApplication().getController('MyController')
-            .deleteReport(record.data.documentNumber);
+        var documentNumber = record.data.documentNumber;
+        Ext.MessageBox.confirm('Best&amul;tigung', 'Wollen Sie das Dokument '
+            + documentNumber + ' l&ouml;schen?',
+            function(btn){
+                if (btn == 'yes')
+                MyApp.getApplication().getController('MyController')
+                    .deleteReport(documentNumber);
+            });
     },
     onDeliveryHistoryClick: function (view, a, b, column, event, record, f) {
         // TODO: this is hacking
