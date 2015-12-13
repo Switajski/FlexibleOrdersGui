@@ -8,11 +8,6 @@ Ext.define('MyApp.view.OrderItemGridPanel', {
             record);
 
     },
-    onPdfClick: function (view, a, b, column, event, record, f) {
-        var win = window.open(constants.REST_BASE_URL + 'reports/'
-            + record.data.orderNumber + '.pdf', '_blank');
-        win.focus();
-    },
     onDeliveryHistoryClick: function (view, a, b, column, event, record, f) {
         Ext.MessageBox.alert('Lieferhisorie leer',
             'Die Lieferhistorie dieser Bestellung ist leer');

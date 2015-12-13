@@ -128,6 +128,19 @@ Ext
                         sortable: false,
                         menuDisabled: true,
                         items: [{
+                            icon: constants.RESOURCES_BASE_URL + 'images/pdf_button.png',
+                            tooltip: 'Dokument ansehen',
+                            scope: this,
+                            handler: function (view, a, b, column, event, record) {
+                                MyApp.getApplication().getController('MyController').onShowPdfClick(record.data.documentNumber);
+                            }
+                        }]
+                    }, {
+                        xtype: 'actioncolumn',
+                        width: 30,
+                        sortable: false,
+                        menuDisabled: true,
+                        items: [{
                             icon: constants.RESOURCES_BASE_URL + 'images/delete.png',
                             tooltip: 'Position l&ouml;schen',
                             scope: this,

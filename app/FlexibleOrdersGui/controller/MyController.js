@@ -271,6 +271,32 @@ Ext.define('MyApp.controller.MyController', {
                     }
                 });
             });
-    }
+    },
+
+    onShowPdfClick: function (documentNumber) {
+        var src = constants.REST_BASE_URL + 'reports/' + documentNumber + '.pdf';
+        var w = new Ext.Window({
+            title: documentNumber,
+            width : 700,
+            height : 987,
+            layout : 'fit',
+            items: [{
+                html : '<object width="100%" height="100%" data="' + src + '"></object>',
+            }],
+            modal: true,
+            dockedItems : [{
+                xtype:'toolbar',
+                dock: 'bottom',
+                items: [{
+                    text: 'in die Dropbox',
+                    icon : constants.RESOURCES_BASE_URL + 'images/dropbox.png',
+                    action : 'sendToDropbox',
+                    documentNumber : documentNumber
+                }]
+            }],
+        });
+
+        w.show();
+    },
 
 });

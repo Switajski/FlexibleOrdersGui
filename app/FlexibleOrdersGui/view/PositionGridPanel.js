@@ -138,36 +138,7 @@ Ext.define('MyApp.view.PositionGridPanel', {
     },
 
     onPdfClick: function (view, a, b, column, event, record, f) {
-        var documentNumber = record.data.documentNumber;
-        var src = constants.REST_BASE_URL + 'reports/' + documentNumber + '.pdf';
-        var w = new Ext.Window({
-            title: documentNumber,
-            width : 700,
-            height : 987,
-            layout : 'fit',
-            items: [{
-                html : '<object width="100%" height="100%" data="' + src + '"></object>',
-            }],
-            modal: true,
-            dockedItems : [{
-                xtype:'toolbar',
-                dock: 'bottom',
-                items: [{
-                    text: 'in die Dropbox',
-                    icon : constants.RESOURCES_BASE_URL + 'images/dropbox.png',
-                    action : 'sendToDropbox',
-                    documentNumber : documentNumber
-                }]
-            }],
-        });
-
-        w.show();
-    },
-
-    onPdfClick_old: function (view, a, b, column, event, record, f) {
-        var win = window.open(constants.REST_BASE_URL + 'reports/'
-            + record.data.documentNumber + '.pdf', '_blank');
-        win.focus();
+        MyApp.getApplication().getController('MyController').onShowPdfClick(record.data.documentNumber);
     },
 
     onSync: function () {
