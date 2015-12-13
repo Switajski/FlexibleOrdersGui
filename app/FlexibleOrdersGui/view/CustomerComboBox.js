@@ -6,7 +6,7 @@ Ext.define('MyApp.view.CustomerComboBox', {
     itemid: 'customer',
     displayField: 'customerNumber',
     valueField: 'customerNumber',
-    width: 350,
+    width: 450,
     enableRegEx: true,
     queryMode: 'remote',
     allowBlank: false,
