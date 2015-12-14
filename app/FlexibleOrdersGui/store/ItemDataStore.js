@@ -19,8 +19,8 @@ Ext.define('MyApp.store.ItemDataStore', {
                 type: 'ajax',
                 actionMethods: {
                     read: 'GET',
-                    update: 'PUT',
-                    destroy: 'POST',
+                    update: 'POST',
+                    destroy: 'DELETE',
                     create: 'POST'
                 },
                 api: {

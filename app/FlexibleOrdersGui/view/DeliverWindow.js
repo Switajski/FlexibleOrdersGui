@@ -350,10 +350,8 @@ Ext
 
             onComboboxChange: function () {
                 if (record != null) {
-                    var combobox = Ext.ComponentQuery
-                        .query('invoicenumbercombobox')[0];
-                    this.record.data.invoiceNumber = combobox
-                        .getValue();
+                    var combobox = Ext.ComponentQuery.query('invoicenumbercombobox')[0];
+                    this.record.data.invoiceNumber = combobox.getValue();
                 }
             }
 
