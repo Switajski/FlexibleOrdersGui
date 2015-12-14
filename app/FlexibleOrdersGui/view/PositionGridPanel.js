@@ -153,7 +153,7 @@ Ext.define('MyApp.view.PositionGridPanel', {
     },
     onRemoveClick: function (view, a, b, column, event, record, f) {
         var documentNumber = record.data.documentNumber;
-        Ext.MessageBox.confirm('Best&amul;tigung', 'Wollen Sie das Dokument '
+        Ext.MessageBox.confirm('Best&auml;tigung', 'Wollen Sie das Dokument '
             + documentNumber + ' l&ouml;schen?',
             function(btn){
                 if (btn == 'yes')
