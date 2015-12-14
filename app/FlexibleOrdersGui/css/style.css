@@ -31,3 +31,6 @@ tr .warning-row{
 #sumOfPositionGrid {
     font-weight: bold;
 }
+table .custom-invalid {
+    background-color: gold;
+}

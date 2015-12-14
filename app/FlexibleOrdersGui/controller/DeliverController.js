@@ -66,28 +66,29 @@ Ext.define('MyApp.controller.DeliverController', {
     },
 
     deliver2: function (event, record, createDeliveryNotesStore) {
-        var form = Ext.getCmp('DeliverWindow').down('form').getForm();
+        var form = Ext.getCmp('DeliverWindow').down('form');
         if (event == "ok") {
 
+            var values = form.getForm().getValues();
             var request = Ext.Ajax.request({
                 url: constants.REST_BASE_URL + 'transitions/deliver',
                 // headers: { 'Content-Type': 'application/json' },
                 jsonData: {
-                    orderConfirmationNumber: form.getValues().confirmationNumber,
-                    customerId: form.getValues().id,
-                    name1: form.getValues().name1,
-                    name2: form.getValues().name2,
-                    street: form.getValues().street,
-                    postalCode: form.getValues().postalCode,
-                    city: form.getValues().city,
-                    country: form.getValues().country,
-                    deliveryNotesNumber: form.getValues().deliveryNotesNumber,
-                    shipment: form.getValues().shipment,
-                    packageNumber: form.getValues().packageNumber,
-                    trackNumber: form.getValues().trackNumber,
-                    created: form.getValues().created,
-                    showPricesInDeliveryNotes: form.getValues().showPricesInDeliveryNotes,
-                    ignoreContradictoryExpectedDeliveryDates: form.getValues().ignoreContradictoryExpectedDeliveryDates,
+                    orderConfirmationNumber: values.confirmationNumber,
+                    customerId: values.id,
+                    name1: values.name1,
+                    name2: values.name2,
+                    street: values.street,
+                    postalCode: values.postalCode,
+                    city: values.city,
+                    country: values.country,
+                    deliveryNotesNumber: values.deliveryNotesNumber,
+                    shipment: values.shipment,
+                    packageNumber: values.packageNumber,
+                    trackNumber: values.trackNumber,
+                    created: values.created,
+                    showPricesInDeliveryNotes: values.showPricesInDeliveryNotes,
+                    ignoreContradictoryExpectedDeliveryDates: values.ignoreContradictoryExpectedDeliveryDates,
                     items: Ext.pluck(createDeliveryNotesStore.data.items,
                         'data')
                 },
@@ -101,6 +102,14 @@ Ext.define('MyApp.controller.DeliverController', {
                         grid.getStore().load();
                     });
                     Ext.getCmp("DeliverWindow").close();
+                },
+                failure: function(response) {
+                    var responseText =  Ext.JSON.decode(response.responseText);
+                    Ext.Object.each(responseText.errors, function(field, errorText){
+                        var field = form.down("[name=" + field + "]");
+                        field.markInvalid(errorText);
+                        field.addCls('custom-invalid');
+                    });
                 }
             });
         }
