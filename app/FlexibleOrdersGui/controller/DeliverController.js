@@ -11,7 +11,7 @@ Ext.define('MyApp.controller.DeliverController', {
         this.control({});
     },
 
-    deliver: function (event, record) {
+    onDeliver: function (event, record) {
         deliveryNotesNumber = record.data.documentNumber.replace(/AB/g, "L");
 
         record.data.deliveryNotesNumber = record.data.documentNumber;
@@ -34,7 +34,7 @@ Ext.define('MyApp.controller.DeliverController', {
                 MyApp
                     .getApplication()
                     .getController('DeliverController')
-                    .deliver2("ok", kunde, createDeliveryNotesStore);
+                    .deliver("ok", kunde, createDeliveryNotesStore);
             }
         });
         kunde = Ext.getStore('KundeDataStore').findRecord("customerNumber",
@@ -65,7 +65,7 @@ Ext.define('MyApp.controller.DeliverController', {
         Ext.getStore('KundeDataStore').findRecord("email", email).data.id = kundeId;
     },
 
-    deliver2: function (event, record, createDeliveryNotesStore) {
+    deliver: function (event, record, createDeliveryNotesStore) {
         var form = Ext.getCmp('DeliverWindow').down('form');
         if (event == "ok") {
 

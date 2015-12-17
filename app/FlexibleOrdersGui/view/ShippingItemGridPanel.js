@@ -8,7 +8,7 @@ Ext.define('MyApp.view.ShippingItemGridPanel', {
             MyApp.getApplication().getController('AgreementController')
                 .onAgree("ok", record);
         else
-            MyApp.getApplication().getController('DeliverController').deliver(
+            MyApp.getApplication().getController('DeliverController').onDeliver(
                 "ok", record);
     }
 });

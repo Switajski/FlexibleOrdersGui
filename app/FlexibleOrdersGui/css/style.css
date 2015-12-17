@@ -34,3 +34,12 @@ tr .warning-row{
 table .custom-invalid {
     background-color: gold;
 }
+#msg-div {
+    position:absolute;
+    z-index:2;
+    width:300px;
+}
+#extjs_listitems {
+    position:absolute;
+    z-index: 1;
+}

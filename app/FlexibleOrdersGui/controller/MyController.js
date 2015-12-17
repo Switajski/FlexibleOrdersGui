@@ -5,12 +5,12 @@ Ext.Ajax.on('requestexception', function (conn, response, options) {
             response.responseText);
     } else if (response.status === 422) {
         var responseText =  Ext.JSON.decode(response.responseText);
-        var string = '';
-        Ext.Object.each(responseText.errors, function(field, errorText){
-            string.concat(errorText);
-            string.concat('<br />');
-        });
-        Ext.MessageBox.alert('Eingabe nicht valide', string);
+
+        var output = '';
+        for (var property in responseText.errors) {
+            output += property + ': ' + responseText.errors[property]+'; ';
+        }
+        MyApp.customAlert.msg('Eingabe nicht valide', output);
     } else if (response.status === 404) {
         Ext.MessageBox.alert(options.url + ' nicht erreichbar (' + response.status + ') '
             + response.statusText, options.url);
@@ -252,7 +252,7 @@ Ext.define('MyApp.controller.MyController', {
             state: 'invoiced',
             grid: 'InvoiceItemGrid',
             text: 'Rechnungen'
-        }],
+        }]
 
             statesToGrids.forEach(function (stateToGrid) {
                 Ext.Ajax.request({
@@ -282,7 +282,7 @@ Ext.define('MyApp.controller.MyController', {
             height : 987,
             layout : 'fit',
             items: [{
-                html : '<object width="100%" height="100%" data="' + src + '"></object>',
+                html : '<object width="100%" height="100%" data="' + src + '"></object>'
             }],
             modal: true,
             dockedItems : [{
@@ -294,10 +294,58 @@ Ext.define('MyApp.controller.MyController', {
                     action : 'sendToDropbox',
                     documentNumber : documentNumber
                 }]
-            }],
+            }]
         });
 
         w.show();
-    },
+    }
 
 });
+
+MyApp.customAlert = function(){
+    var msgCt;
+
+    function createBox(t, s){
+        return ['<div class="msg">',
+            '<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>',
+            '<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3>', t, '</h3>', s, '</div></div></div>',
+            '<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>',
+            '</div>'].join('');
+    }
+    return {
+        msg : function(title, format){
+            if(!msgCt){
+                msgCt = Ext.DomHelper.insertFirst(document.body, {id:'msg-div'}, true);
+            }
+            msgCt.alignTo(document, 't-t');
+            var s = Array.prototype.slice.call(arguments, 1);
+            var m = Ext.DomHelper.append(msgCt, {html:createBox(title, s)}, true);
+            setTimeout(function() {
+                m.ghost("t", {remove:true});
+            }, 3000);
+        },
+
+        init : function(){
+            var t = Ext.get('exttheme');
+            if(!t){ // run locally?
+                return;
+            }
+            var theme = Cookies.get('exttheme') || 'aero';
+            if(theme){
+                t.dom.value = theme;
+                Ext.getBody().addClass('x-'+theme);
+            }
+            t.on('change', function(){
+                Cookies.set('exttheme', t.getValue());
+                setTimeout(function(){
+                    window.location.reload();
+                }, 250);
+            });
+
+            var lb = Ext.get('lib-bar');
+            if(lb){
+                lb.show();
+            }
+        }
+    };
+}();
