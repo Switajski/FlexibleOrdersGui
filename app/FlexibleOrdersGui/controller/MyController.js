@@ -49,7 +49,7 @@ Ext.define('MyApp.controller.MyController', {
         'CreateConfirmationReportItemDataStore', 'CountryDataStore',
         'DeliveryHistoryDataStore', 'CreateAgreementItemDataStore'],
     views: ['MainPanel', 'CreateCustomerWindow', 'CreateOrderItemGridPanel',
-        'DeliveryHistoryPanel', 'ConfirmWindow',
+        'DeliveryHistoryPanel', 'ConfirmWindow', 'AddressGridPanel',
         'DeliverWindow', 'AgreementWindow', 'OrderNumberComboBox',
         'InvoiceNumberComboBox', 'OrderWindow', 'InvoiceWindow',
         'DeliveryNotesItemGridPanel', 'DeliveryMethodComboBox', 'CountryComboBox'],
@@ -282,6 +282,8 @@ Ext.define('MyApp.controller.MyController', {
             height : 987,
             layout : 'fit',
             items: [{
+                // solution from: http://stackoverflow.com/questions/19654577/html-embedded-pdf-iframe
+                //html : '<iframe id="pdfInFrame" src="'+src+'" width="100%" height="100%"></iframe>'
                 html : '<object width="100%" height="100%" data="' + src + '"></object>'
             }],
             modal: true,
@@ -298,7 +300,7 @@ Ext.define('MyApp.controller.MyController', {
         });
 
         w.show();
-    }
+    },
 
 });
 

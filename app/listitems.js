@@ -25,7 +25,8 @@ Ext.application({
         'IssueController', // FIXME: removing that useless line of code
         // makes the extjs application not starting
         'ConfirmController', 'DeliverController', 'InvoiceController',
-        'MarkPaidController', 'OrderController', 'SecurityController'],
+        'MarkPaidController', 'OrderController', 'SecurityController'//,'ShippingAddressController'
+        ],
     name: 'MyApp',
     // autoCreateViewport:true,
     launch: function () {

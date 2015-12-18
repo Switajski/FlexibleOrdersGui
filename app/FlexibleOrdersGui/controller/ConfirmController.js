@@ -1,7 +1,6 @@
 Ext.define('MyApp.controller.ConfirmController', { 
 	debug : true,
 	extend : 'Ext.app.Controller',
-
 	id : 'ConfirmController',
 	models : ['ItemData'],
 	stores : ['CreateConfirmationReportItemDataStore'],

@@ -95,8 +95,7 @@ Ext.define('MyApp.controller.DeliverController', {
                 success: function (response) {
                     var text = response.responseText;
                     // Sync
-                    MyApp.getApplication().getController('MyController')
-                        .sleep(500);
+                    MyApp.getApplication().getController('MyController').sleep(500);
                     var allGrids = Ext.ComponentQuery.query('PositionGrid');
                     allGrids.forEach(function (grid) {
                         grid.getStore().load();
@@ -105,15 +104,19 @@ Ext.define('MyApp.controller.DeliverController', {
                 },
                 failure: function(response) {
                     var responseText =  Ext.JSON.decode(response.responseText);
-                    Ext.Object.each(responseText.errors, function(field, errorText){
-                        var field = form.down("[name=" + field + "]");
-                        field.markInvalid(errorText);
-                        field.addCls('custom-invalid');
-                    });
+                    if (responseText.message.indexOf('#CPA-DA') != -1){
+                        var controller = MyApp.getApplication().getController('ShippingAddressController');
+                        controller.onChangeShippingAddress(controller.getDocumentNumbers());
+                    } else {
+                        Ext.Object.each(responseText.errors, function (field, errorText) {
+                            var field = form.down("[name=" + field + "]");
+                            field.markInvalid(errorText);
+                            field.addCls('custom-invalid');
+                        });
+                    }
                 }
             });
         }
-    }
-
+    },
 
 });

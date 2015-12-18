@@ -64,5 +64,19 @@ Ext.define('MyApp.view.ShippingAddressFieldset', {
             billingFieldName: 'dcity',
             allowBlank: false
         }]
+    },{
+        xtype: 'fieldcontainer',
+        layout: 'hbox',
+        defaultType: 'textfield',
+        defaults: {
+            labelWidth: 70,
+            flex: 1
+        },
+        items: [{
+            xtype: 'countrycombobox',
+            name: 'dcountry',
+            valueField: 'id',
+            fieldLabel: 'Land',
+        }]
     }]
 });

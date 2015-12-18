@@ -132,7 +132,23 @@ Ext
                             tooltip: 'Dokument ansehen',
                             scope: this,
                             handler: function (view, a, b, column, event, record) {
-                                MyApp.getApplication().getController('MyController').onShowPdfClick(record.data.documentNumber);
+                                MyApp.getApplication().getController('MyController')
+                                    .onShowPdfClick(record.data.documentNumber);
+                            }
+                        }]
+                    },
+                    {
+                        xtype: 'actioncolumn',
+                        width: 30,
+                        sortable: false,
+                        menuDisabled: true,
+                        items: [{
+                            icon: constants.RESOURCES_BASE_URL + 'images/update.png',
+                            tooltip: 'Dokument ansehen',
+                            scope: this,
+                            handler: function (view, a, b, column, event, record) {
+                                var controller = MyApp.getApplication().getController('ShippingAddressController');
+                                controller.onChangeShippingAddress(controller.getDocumentNumbers());
                             }
                         }]
                     }, {
