@@ -12,9 +12,7 @@ Ext.define('MyApp.controller.DeliverController', {
     },
 
     onDeliver: function (event, record) {
-        deliveryNotesNumber = record.data.documentNumber.replace(/AB/g, "L");
 
-        record.data.deliveryNotesNumber = record.data.documentNumber;
         var createDeliveryNotesStore = MyApp.getApplication()
             .getStore('CreateDeliveryNotesItemDataStore');
         createDeliveryNotesStore.filter([{
@@ -60,8 +58,21 @@ Ext.define('MyApp.controller.DeliverController', {
             customerNumber: kunde.data.customerNumber,
             street: kunde.data.street
         });
+
+
+        Ext.Ajax.request({
+            url : constants.REST_BASE_URL + 'deliveryNotes/generateNumber',
+            method: 'GET',
+            params : {
+                orderConfirmationNumber:record.data.documentNumber
+            },
+            success : function(response) {
+                var generatedNo = Ext.decode(response.responseText).data;
+                Ext.getCmp('deliveryNotesNumber').setValue(generatedNo);
+                record.data.deliveryNotesNumber = generatedNo;
+            }
+        });
         // somehow the id is deleted onShow
-        Ext.getCmp('deliveryNotesNumber').setValue(deliveryNotesNumber);
         Ext.getStore('KundeDataStore').findRecord("email", email).data.id = kundeId;
     },
 

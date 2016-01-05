@@ -73,7 +73,7 @@ Ext.define('MyApp.controller.OrderController', {
 		orderWindow.focus();
 
 		Ext.Ajax.request({
-			url : constants.REST_BASE_URL + 'order/generateOrderNumber',
+			url : constants.REST_BASE_URL + 'order/generateNumber',
 			success : function(response) {
 				Ext.getCmp('OrderWindow').down('ordernumbercombobox').setValue(
 						Ext.decode(response.responseText).data);
