@@ -10,7 +10,7 @@ addons:
     packages:
       - g++-4.8
 install:
-  npm install
-  grunt
+  - npm install
+  - grunt
 after_script:
   mvn deploy
