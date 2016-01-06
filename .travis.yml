@@ -9,7 +9,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
-after_success:
+install:
   npm install
   grunt
 after_script:
