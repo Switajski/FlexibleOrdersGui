@@ -12,4 +12,5 @@ addons:
 after_success:
   npm install
   grunt
+  apt-get install maven
   mvn deploy
