@@ -1,4 +1,4 @@
-language: node_js, java
+language: node_js
 node_js:
   - "4"
 env:
@@ -12,4 +12,3 @@ addons:
 after_success:
   npm install
   grunt
-  mvn deploy
