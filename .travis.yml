@@ -21,5 +21,5 @@ install:
 
 env:
   global:
-    - secure: "OLZdQ/wXVInZyKScT2+JnzSkRpqTE1LqRs/oxJ8WbXuQbI3fK1h5no8SbnczpYtiN+JQcXbl1qQHaXPSg5Eg97a97MUz6/gQLJbAT8bYziiVtrKbd3u37B+drC2awm4EJClFJD0hYgUX7ZamMN78jkRNs4vcNpCYMHtMOdPav+k="
-    - secure: "Syb9ilIeTQNV/xrRhzZuhjBcoI2kfv/8THtDl0wRf+Bvil5nu75gA/kN0Ne+wW4eW53iAoyzOIqTaQMeQcRg25kCXfH9SAHKPk/pojUh0N//M5rjWjes9Nq0magwtoU22LE88I/24/8l+0v+R3WJZ2GPSqtqkKtQP0T0t4DIXi0="
+    - secure: "oat6wfkHP0aqbMP/QstPNuOYjh0t70+vwvvTO6nVvC7p+fTBg6n15qBiEWIFFtnrfS/SYnS3gMOXD3UYRZnqJEoN+0o1A0nJXv2uJknG73s2XQIdVrGHYlFW4Ln2aKYN6AnfQ032U+41Gp0UvyP0N2XpqeayMpcTPBZ1zSzzDPg="
+    - secure: "nOuEH0ooli8d3CbuFrBgjDhN5zKaR5xrGMp5REH7aTGqPw/WVxJwbL6X+Jx8r+Voci1HwHBeRK8ZKEQV+74Zb7XNAPmASvUYb/YvoElew8+v1f4mPrGPgZXwMx+GVkfkiYKIOx9xEQBEBTRD6sqVX/18bMYZob48HIRjF5cFTQg="
