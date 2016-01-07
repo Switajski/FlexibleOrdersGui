@@ -4,11 +4,6 @@ language: node_js
 before_install: "git clone -b travis `git config --get remote.origin.url` target/travis"
 script: "[ ${TRAVIS_PULL_REQUEST} = 'false' ] && mvn clean deploy --settings target/travis/settings.xml || mvn clean verify --settings target/travis/settings.xml"
 
-# blacklist - do not build mvn-repo branch - this is just for hosting mvn-dependecy
-branches:
-  except:
-    - mvn-repo
-
 node_js:
   - "4"
 env:
