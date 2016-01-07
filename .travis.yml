@@ -22,6 +22,6 @@ after_script:
   mvn deploy
 
 env:
-	global:
-		- secure: "OLZdQ/wXVInZyKScT2+JnzSkRpqTE1LqRs/oxJ8WbXuQbI3fK1h5no8SbnczpYtiN+JQcXbl1qQHaXPSg5Eg97a97MUz6/gQLJbAT8bYziiVtrKbd3u37B+drC2awm4EJClFJD0hYgUX7ZamMN78jkRNs4vcNpCYMHtMOdPav+k="
-		- secure: "Syb9ilIeTQNV/xrRhzZuhjBcoI2kfv/8THtDl0wRf+Bvil5nu75gA/kN0Ne+wW4eW53iAoyzOIqTaQMeQcRg25kCXfH9SAHKPk/pojUh0N//M5rjWjes9Nq0magwtoU22LE88I/24/8l+0v+R3WJZ2GPSqtqkKtQP0T0t4DIXi0="
+  global:
+    - secure: "OLZdQ/wXVInZyKScT2+JnzSkRpqTE1LqRs/oxJ8WbXuQbI3fK1h5no8SbnczpYtiN+JQcXbl1qQHaXPSg5Eg97a97MUz6/gQLJbAT8bYziiVtrKbd3u37B+drC2awm4EJClFJD0hYgUX7ZamMN78jkRNs4vcNpCYMHtMOdPav+k="
+    - secure: "Syb9ilIeTQNV/xrRhzZuhjBcoI2kfv/8THtDl0wRf+Bvil5nu75gA/kN0Ne+wW4eW53iAoyzOIqTaQMeQcRg25kCXfH9SAHKPk/pojUh0N//M5rjWjes9Nq0magwtoU22LE88I/24/8l+0v+R3WJZ2GPSqtqkKtQP0T0t4DIXi0="
