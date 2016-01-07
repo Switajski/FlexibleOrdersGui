@@ -4,11 +4,11 @@ Ext.Ajax.on('requestexception', function (conn, response, options) {
         Ext.MessageBox.alert(response.status + ' Eingabefehler',
             response.responseText);
     } else if (response.status === 422) {
-        var responseText =  Ext.JSON.decode(response.responseText);
+        var responseText = Ext.JSON.decode(response.responseText);
 
         var output = '';
         for (var property in responseText.errors) {
-            output += property + ': ' + responseText.errors[property]+'; ';
+            output += property + ': ' + responseText.errors[property] + '; ';
         }
         MyApp.customAlert.msg('Eingabe nicht valide', output);
     } else if (response.status === 404) {
@@ -75,10 +75,10 @@ Ext.define('MyApp.controller.MyController', {
             '#ShowSums': {
                 click: this.onShowSums
             },
-            '#ShowToBeShipped':{
+            '#ShowToBeShipped': {
                 click: this.onShowToBeShipped
             },
-            'button[action=sendToDropbox]':{
+            'button[action=sendToDropbox]': {
                 click: this.onSendToDropbox
             }
         });
@@ -123,14 +123,14 @@ Ext.define('MyApp.controller.MyController', {
         else
             Ext.MessageBox
                 .alert('Hinweis',
-                'Bestellung schon best&auml;tigt. Nur noch Storno ist m&ouml;glich.');
+                    'Bestellung schon best&auml;tigt. Nur noch Storno ist m&ouml;glich.');
     },
 
-    onShowToBeShipped: function (view, a, b, column, event, record, f){
+    onShowToBeShipped: function (view, a, b, column, event, record, f) {
         var string = '/ausstehendeArtikel.pdf';
         var customerNumber = Ext.getCmp('mainCustomerComboBox').getValue();
-        if (customerNumber != null){
-            string = 'kunden/'+customerNumber+'/ausstehendeArtikel.pdf';
+        if (customerNumber != null) {
+            string = 'kunden/' + customerNumber + '/ausstehendeArtikel.pdf';
         }
         var win = window.open(constants.REST_BASE_URL + string, '_blank');
         win.focus();
@@ -208,7 +208,7 @@ Ext.define('MyApp.controller.MyController', {
         });
     },
 
-    onSendToDropbox: function(button){
+    onSendToDropbox: function (button) {
         console.log(button.documentNumber);
         var request = Ext.Ajax.request({
             url: constants.REST_BASE_URL + 'dropbox/sendReport/' + button.documentNumber,
@@ -217,7 +217,7 @@ Ext.define('MyApp.controller.MyController', {
                 documentNumber: button.documentNumber
             },
             success: function (response) {
-                if (response.status == 210){ // redirect
+                if (response.status == 210) { // redirect
                     var obj = JSON.parse(response.responseText);
                     console.log(obj);
 
@@ -254,47 +254,51 @@ Ext.define('MyApp.controller.MyController', {
             text: 'Rechnungen'
         }]
 
-            statesToGrids.forEach(function (stateToGrid) {
-                Ext.Ajax.request({
-                    url: constants.REST_BASE_URL + 'statistics/openAmount',
-                    method: 'GET',
-                    params: {
-                        state: stateToGrid.state
-                    },
-                    success: function (response) {
-                        var text = response.responseText;
-                        shippedAmount = Ext.JSON.decode(text).data;
-                        Ext.getCmp(stateToGrid.grid)
-                            .setTitle(stateToGrid.text
+        statesToGrids.forEach(function (stateToGrid) {
+            Ext.Ajax.request({
+                url: constants.REST_BASE_URL + 'statistics/openAmount',
+                method: 'GET',
+                params: {
+                    state: stateToGrid.state
+                },
+                success: function (response) {
+                    var text = response.responseText;
+                    shippedAmount = Ext.JSON.decode(text).data;
+                    Ext.getCmp(stateToGrid.grid)
+                        .setTitle(stateToGrid.text
                             + ' - Offener Betrag: '
                             + shippedAmount.value + ' '
                             + shippedAmount.currency);
-                    }
-                });
+                }
             });
+        });
     },
 
     onShowPdfClick: function (documentNumber) {
         var src = constants.REST_BASE_URL + 'reports/' + documentNumber + '.pdf';
         var w = new Ext.Window({
             title: documentNumber,
-            width : 700,
-            height : 987,
-            layout : 'fit',
+            width: 700,
+            height: 987,
+            layout: 'fit',
             items: [{
                 // solution from: http://stackoverflow.com/questions/19654577/html-embedded-pdf-iframe
-                //html : '<iframe id="pdfInFrame" src="'+src+'" width="100%" height="100%"></iframe>'
-                html : '<object width="100%" height="100%" data="' + src + '"></object>'
+                html : '<iframe src="'+src+'" style="float:none;display:inline;height:1200px;" width="100%" height="100%"></iframe>'
+                // old solution:
+                //html : '<object width="100%" height="100%" data="' + src + '"></object>'
+                // html 5 solution:
+                //html: '<embed src="' + src + '" width="700" height="987" type="application/pdf" ' +
+                //'alt="pdf"' + 'pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">'
             }],
             modal: true,
-            dockedItems : [{
-                xtype:'toolbar',
+            dockedItems: [{
+                xtype: 'toolbar',
                 dock: 'bottom',
                 items: [{
                     text: 'in die Dropbox',
-                    icon : constants.RESOURCES_BASE_URL + 'images/dropbox.png',
-                    action : 'sendToDropbox',
-                    documentNumber : documentNumber
+                    icon: constants.RESOURCES_BASE_URL + 'images/dropbox.png',
+                    action: 'sendToDropbox',
+                    documentNumber: documentNumber
                 }]
             }]
         });
@@ -304,48 +308,49 @@ Ext.define('MyApp.controller.MyController', {
 
 });
 
-MyApp.customAlert = function(){
+MyApp.customAlert = function () {
     var msgCt;
 
-    function createBox(t, s){
+    function createBox(t, s) {
         return ['<div class="msg">',
             '<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>',
             '<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3>', t, '</h3>', s, '</div></div></div>',
             '<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>',
             '</div>'].join('');
     }
+
     return {
-        msg : function(title, format){
-            if(!msgCt){
-                msgCt = Ext.DomHelper.insertFirst(document.body, {id:'msg-div'}, true);
+        msg: function (title, format) {
+            if (!msgCt) {
+                msgCt = Ext.DomHelper.insertFirst(document.body, {id: 'msg-div'}, true);
             }
             msgCt.alignTo(document, 't-t');
             var s = Array.prototype.slice.call(arguments, 1);
-            var m = Ext.DomHelper.append(msgCt, {html:createBox(title, s)}, true);
-            setTimeout(function() {
-                m.ghost("t", {remove:true});
+            var m = Ext.DomHelper.append(msgCt, {html: createBox(title, s)}, true);
+            setTimeout(function () {
+                m.ghost("t", {remove: true});
             }, 3000);
         },
 
-        init : function(){
+        init: function () {
             var t = Ext.get('exttheme');
-            if(!t){ // run locally?
+            if (!t) { // run locally?
                 return;
             }
             var theme = Cookies.get('exttheme') || 'aero';
-            if(theme){
+            if (theme) {
                 t.dom.value = theme;
-                Ext.getBody().addClass('x-'+theme);
+                Ext.getBody().addClass('x-' + theme);
             }
-            t.on('change', function(){
+            t.on('change', function () {
                 Cookies.set('exttheme', t.getValue());
-                setTimeout(function(){
+                setTimeout(function () {
                     window.location.reload();
                 }, 250);
             });
 
             var lb = Ext.get('lib-bar');
-            if(lb){
+            if (lb) {
                 lb.show();
             }
         }
