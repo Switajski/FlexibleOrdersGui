@@ -1,11 +1,11 @@
 # FlexibleOrdersGui
 
-GUI with ExtJs 4.2.1 for [FlexibleOrders](https://github.com/Switajski/FlexibleOrders)
+GUI with ExtJs 4.2.1 for [FlexibleOrders](https://github.com/Switajski/FlexibleOrders). Why using a seperate project for a GUI? See [wiki](http://wiki.switajski.de/flexible-orders-gui.md) for a detailed description of this modularized approach.
 
 ## Tooling, building, deploying:
 
 ### Javascript tooling with Node.js:
-The code and css in this project is minified with "Grunt" task runner when building. I'm also planning to do some tests and let them run on Travis-CI. This is all done via grunt:
+The code and css in this project is minified with "Grunt" task runner when building.
 ```
 npm install -g grunt-cli
 npm install grunt-cli
