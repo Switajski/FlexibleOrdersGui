@@ -283,9 +283,9 @@ Ext.define('MyApp.controller.MyController', {
             layout: 'fit',
             items: [{
                 // solution from: http://stackoverflow.com/questions/19654577/html-embedded-pdf-iframe
-                html : '<iframe src="'+src+'" style="float:none;display:inline;height:1200px;" width="100%" height="100%"></iframe>'
+                //html : '<iframe src="'+src+'" style="float:none;display:inline;height:1200px;" width="100%" height="100%"></iframe>'
                 // old solution:
-                //html : '<object width="100%" height="100%" data="' + src + '"></object>'
+                html : '<object width="100%" height="100%" data="' + src + '"></object>'
                 // html 5 solution:
                 //html: '<embed src="' + src + '" width="700" height="987" type="application/pdf" ' +
                 //'alt="pdf"' + 'pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">'
