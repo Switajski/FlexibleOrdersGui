@@ -1,4 +1,4 @@
-# FlexibleOrdersGui
+# FlexibleOrdersGui <a href="https://travis-ci.org/Switajski/FlexibleOrdersGui">![Build Status](https://travis-ci.org/Switajski/FlexibleOrdersGui.svg)</a>
 
 GUI with ExtJs 4.2.1 for [FlexibleOrders](https://github.com/Switajski/FlexibleOrders). Why using a seperate project for a GUI? See [wiki](http://wiki.switajski.de/flexible-orders-gui.md) for a detailed description of this modularized approach.
 
