@@ -1,6 +1,6 @@
 language: node_js
 
-# mvn settings
+# settings.xml for maven. Holding placeholder for password and username of github repository
 before_install: "git clone -b travis `git config --get remote.origin.url` target/travis"
 script: "[ ${TRAVIS_PULL_REQUEST} = 'false' ] && mvn clean deploy --settings target/travis/settings.xml || mvn clean verify --settings target/travis/settings.xml"
 
@@ -18,7 +18,10 @@ install:
   - npm install
   - npm install -g grunt-cli
   - grunt
+  - cd deploy
+  - mvn install
 
+# settings.xml placeholders will be replaced by following encrypted properties
 env:
   global:
     - secure: "dak6K8VUQ/WWVYv3Ng4SaTDjDwaK9qD7iVc4fc507iypCQaxRWNnAYGsDnXecNtWtEZcml6DSbHjG5YxMAOVOiIS8xb8XjiDOJVAutzAyYZubqteQqQhF2l9zxhnGxPe40KDABm5K/3dRf5BvO6oKGkUx/pj/ZP5tuMoGUakfrn2nSKstOwRgonc1m69zuTjI7IXzhX2WfKI6Wm/blhMDmxzpPjFW2nD7ruqNebZCEom3Dhw8/HKbJWFQJSN2FRqZFoKHRm/VCZBH6NQeBVy91ZXyDIqdGRqF7UD4sfqk6iwMO1MdV/o04vhK15jfpdZyLFcbKeqRUeUCiC50TX5JELXYqF0CgcGmTcpJxnUKnMKR6HNTdCnQcR6i3GFPKqS8JpkhQiyc5zqvYDQCulZy05Fqh2QtgeCuPjR02MbVwmq+uhtKZ2trWklYgcspuJolJZ9pphiCyh3tPEtSX1q7ZkUScu6NqbW9g7X7Hr5va1Y69Mx0rg8Xfq7v0yvY7GC8qHS/HMkDDmSgAGz7A1MM5SC7oXVkT4ZzeJtYaI1kmqDrpzik0TsG342EJH4+e0FnhbfxqpBIl0NJj5DN30O0MDdJtzzPWvrSK+qH/GLAgvg3859txDktyX3GXHUzZRUyLSQLy8LdYQ4k1FDG2T9dPvULl2fhDSXGWc5LmJ1N14="
