@@ -6,7 +6,7 @@ GUI with ExtJs 4.2.1 for [FlexibleOrders](https://github.com/Switajski/FlexibleO
 
 ### Javascript tooling with Node.js:
 The code and css in this project is minified with "Grunt" task runner when building.
-``` 
+```
 npm install -g grunt-cli
 npm install grunt-cli
 grunt
