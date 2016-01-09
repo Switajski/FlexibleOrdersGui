@@ -1,5 +1,6 @@
 module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-rename');
     grunt.initConfig({
         compress: {
             main: {
@@ -9,10 +10,17 @@ module.exports = function (grunt) {
                 files: [
                     { expand: true, cwd: 'app/', src: ['**'], app: '/'}
                 ]}
+        },
+        rename: {
+            toJar: {
+                src: 'deploy/FlexibleOrdersGui.zip',
+                dest: 'deploy/FlexibleOrdersGui.jar'
+            }
         }
+
     });
 
     grunt.registerTask('default', [
-        'compress'
+        'compress', 'rename'
     ]);
 };
