@@ -64,8 +64,8 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>deploy/FlexibleOrdersGui.zip</file>
-                                    <type>zip</type>
+                                    <file>deploy/FlexibleOrdersGui.jar</file>
+                                    <type>jar</type>
                                 </artifact>
                             </artifacts>
                         </configuration>
