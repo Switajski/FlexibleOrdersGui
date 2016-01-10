@@ -10,7 +10,7 @@ Ext.define('constants', {
 });
 
 Ext.application({
-    //appFolder: '/FlexibleOrdersGui',
+    appFolder: 'FlexibleOrdersGui',
     models: ['BestellungData', 'ItemData', 'ArtikelData', 'KundeData'],
     stores: ['ArtikelDataStore', 'ArchiveItemDataStore',
         'BestellungDataStore', 'ItemDataStore', 'InvoiceItemDataStore',
