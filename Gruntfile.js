@@ -8,7 +8,13 @@ module.exports = function (grunt) {
                     archive: 'deploy/FlexibleOrdersGui.zip'
                 },
                 files: [
-                    { expand: true, cwd: 'app/', src: ['**'], app: '/'}
+                    {
+                        expand: true,
+                        cwd: 'app/',
+                        src: ['**'],
+                        app: '/',
+                        dest: 'META-INF/resources'
+                    }
                 ]}
         },
         rename: {
@@ -21,6 +27,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', [
-        'compress', 'rename'
+        'compress',
+        'rename'
     ]);
 };
