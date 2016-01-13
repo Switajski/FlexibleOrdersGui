@@ -17,7 +17,7 @@ var grouping = {
     ftype: 'grouping',
     groupHeaderTpl: 'Dok.nr.: {name} ({rows.length} Position{[values.rows.length > 1 ? "en" : ""]}) {[values.rows[0].created]}',
     hideGroupedHeader: false,
-    startCollapsed: false
+    startCollapsed: true
 };
 
 Ext.define('MyApp.view.PositionGridPanel', {
