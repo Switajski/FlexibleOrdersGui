@@ -34,7 +34,7 @@ Ext.define('MyApp.controller.OrderController', {
 				invoiceNumber : form.getValues().invoiceNumber,
 				packageNumber : form.getValues().packageNumber,
 				trackNumber : form.getValues().trackNumber,
-				customerId : record.data.customerNumber,
+				customerNumber : record.data.customerNumber,
 				name1 : record.data.name1,
 				name2 : record.data.name2,
 				street : record.data.street,
