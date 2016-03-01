@@ -16,7 +16,7 @@ Ext.define('MyApp.store.OrderNumberDataStore', {
 					create : 'POST'
 				},
 				type : 'ajax',
-				url : constants.REST_BASE_URL + 'reports/orders/listOrderNumbers',
+				url : constants.REST_BASE_URL + 'orders/listOrderNumbers',
 				headers : {
 					accept : 'application/json'
 				},
