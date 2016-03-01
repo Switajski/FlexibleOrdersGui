@@ -10,7 +10,7 @@ Ext.Ajax.on('requestexception', function (conn, response, options) {
         for (var property in responseText.errors) {
             output += property + ': ' + responseText.errors[property] + '; ';
         }
-        MyApp.customAlert.msg('Eingabe nicht valide', output);
+        MyApp.customAlert.msg(responseText.message, output);
     } else if (response.status === 404) {
         Ext.MessageBox.alert(options.url + ' nicht erreichbar (' + response.status + ') '
             + response.statusText, options.url);
