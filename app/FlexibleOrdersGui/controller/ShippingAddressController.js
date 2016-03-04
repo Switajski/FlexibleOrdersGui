@@ -2,19 +2,19 @@ Ext.define('MyApp.controller.ShippingAddressController', {
     extend: 'Ext.app.Controller',
     id: 'ShippingAddressController',
     models: ['AddressData'],
-    stores: ['ShippingAddressDataStore'],
+    stores: ['ShippingAddressDataStore', 'CreateDeliveryNotesItemDataStore'],
     views: ['ChangeShippingAddressWindow'],
 
     init: function (application) {
         this.control({
-            'button[action=changeShippingAddress]': {
-                click: this.changeShippingAddress
+            'button[action=changeAddress]': {
+                click: this.changeAddress
             }
         });
     },
 
     getDocumentNumbers : function(){
-        var store = Ext.getStore('CreateDeliveryNotesItemDataStore');
+        var store = this.getStore(this.stores[1]);
         var documentNumbers = [];
         var items = store.data.items;
         for (var i = 0; i < items.length; i++) {
@@ -26,14 +26,13 @@ Ext.define('MyApp.controller.ShippingAddressController', {
     },
 
     onChangeShippingAddress: function (documentNumbers) {
-        var store = MyApp.getApplication().getStore('ShippingAddressDataStore');
+        var store = this.getStore(this.stores[0]);
         store.load({
             params: documentNumbers,
             scope: this,
             callback: function (records, operation, success) {
                 if (success) {
-                    console.log('success');
-                    var form = Ext.getCmp('ChangeShippingAddressWindow').down('form').getForm();
+                    var form = Ext.getCmp(this.views[0]).down('form').getForm();
                     var record = records[0].data;
                     form.setValues({
                         name1: record.name1,
@@ -51,15 +50,17 @@ Ext.define('MyApp.controller.ShippingAddressController', {
             }
         });
 
-        var csaw = Ext.create('MyApp.view.ChangeShippingAddressWindow', {
+        var csaw = this.getView(this.views[0]).create({
             store: store
         });
+
         csaw.show();
     },
 
-    changeShippingAddress: function (event, record, store) {
-        var values = Ext.getCmp('ChangeShippingAddressWindow').down('form').getForm().getValues();
-        var store = MyApp.getApplication().getStore('ShippingAddressDataStore');
+    changeAddress: function (event, record, store) {
+        var values = Ext.getCmp(this.views[0]).down('form').getForm().getValues();
+        var store = MyApp.getApplication().getStore(this.stores[0]);
+        var me = this;
 
         var documentNumbers = [];
         store.data.items.forEach(function(entry){
@@ -69,7 +70,6 @@ Ext.define('MyApp.controller.ShippingAddressController', {
         Ext.Ajax.request({
             url: constants.REST_BASE_URL + 'reports/shippingAddress',
             method: 'POST',
-            // headers: { 'Content-Type': 'application/json' },
             jsonData: {
                 name1: values.name1,
                 name2: values.name2,
@@ -87,7 +87,7 @@ Ext.define('MyApp.controller.ShippingAddressController', {
                 allGrids.forEach(function (grid) {
                     grid.getStore().load();
                 });
-                Ext.getCmp("ChangeShippingAddressWindow").close();
+                Ext.getCmp(me.views[0]).close();
             },
             failure: function(response) {
                 var responseText =  Ext.JSON.decode(response.responseText);

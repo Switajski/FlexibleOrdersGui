@@ -94,7 +94,21 @@ Ext.define('MyApp.controller.InvoiceController', {
                         grid.getStore().load();
                     });
                     Ext.getCmp("InvoiceWindow").close();
+                },
+                failure: function(response) {
+                    var responseText =  Ext.JSON.decode(response.responseText);
+                    if (responseText.message.indexOf('#CPA-IA') != -1){
+                        var controller = MyApp.getApplication().getController('ShippingAddressController');
+                        controller.onChangeShippingAddress(controller.getDocumentNumbers());
+                    } else {
+                        Ext.Object.each(responseText.errors, function (field, errorText) {
+                            var field = form.down("[name=" + field + "]");
+                            field.markInvalid(errorText);
+                            field.addCls('custom-invalid');
+                        });
+                    }
                 }
+
             });
         }
     }
