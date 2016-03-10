@@ -5,7 +5,7 @@ Ext.Loader.setConfig({
 
 Ext.define('constants', {
     singleton: true,
-    REST_BASE_URL: '',
+    REST_BASE_URL: 'FlexibleOrders/',
     RESOURCES_BASE_URL: 'FlexibleOrdersGui/'
 });
 
@@ -25,8 +25,9 @@ Ext.application({
         'IssueController', // FIXME: removing that useless line of code
         // makes the extjs application not starting
         'ConfirmController', 'DeliverController', 'InvoiceController',
-        'MarkPaidController', 'OrderController', 'SecurityController'//,'ShippingAddressController'
-        ],
+        'MarkPaidController', 'OrderController', 'SecurityController',
+        'InvoicingAddressController', 'ShippingAddressController'
+    ],
     name: 'MyApp',
     // autoCreateViewport:true,
     launch: function () {

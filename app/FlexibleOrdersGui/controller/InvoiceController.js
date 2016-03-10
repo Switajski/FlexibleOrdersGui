@@ -97,8 +97,8 @@ Ext.define('MyApp.controller.InvoiceController', {
                 },
                 failure: function(response) {
                     var responseText =  Ext.JSON.decode(response.responseText);
-                    if (responseText.message.indexOf('#CPA-IA') != -1){
-                        var controller = MyApp.getApplication().getController('ShippingAddressController');
+                    if (responseText.message.indexOf('#CAE') != -1){
+                        var controller = MyApp.getApplication().getController('InvoicingAddressController');
                         controller.onChangeShippingAddress(controller.getDocumentNumbers());
                     } else {
                         Ext.Object.each(responseText.errors, function (field, errorText) {

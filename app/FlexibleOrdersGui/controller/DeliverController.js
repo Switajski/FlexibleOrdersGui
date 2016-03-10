@@ -115,7 +115,7 @@ Ext.define('MyApp.controller.DeliverController', {
                 },
                 failure: function(response) {
                     var responseText =  Ext.JSON.decode(response.responseText);
-                    if (responseText.message.indexOf('#CPA-DA') != -1){
+                    if (responseText.message.indexOf('#CAE') != -1){
                         var controller = MyApp.getApplication().getController('ShippingAddressController');
                         controller.onChangeShippingAddress(controller.getDocumentNumbers());
                     } else {
