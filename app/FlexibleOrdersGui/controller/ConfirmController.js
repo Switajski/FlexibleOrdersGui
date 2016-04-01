@@ -81,6 +81,18 @@ Ext.define('MyApp.controller.ConfirmController', {
 			        vatIdNo : kunde.data.vatIdNo,
 			        vendorNumber : kunde.data.vendorNumber
 				});
+
+		Ext.Ajax.request({
+			url : constants.REST_BASE_URL + 'report/generateNumber',
+			method: 'GET',
+			success : function(response) {
+				var generatedNo = 'AB' + Ext.decode(response.responseText).data;
+				Ext.getCmp('newOrderConfirmationNumber').setValue(generatedNo);
+				record.data.orderConfirmationNumber = generatedNo;
+			}
+		});
+
+
 		// somehow the id is deleted onShow
 		// Ext.getCmp('confirmationReportNumber')
 		// .setValue(confirmationReportNumber);
