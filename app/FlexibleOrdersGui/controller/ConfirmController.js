@@ -15,8 +15,8 @@ Ext.define('MyApp.controller.ConfirmController', {
 	},
 	
 	onConfirm : function(record) {
-		confirmationReportNumber = record.data.orderNumber.replace(/B/g, "AB");
-
+		var orderNumber = record.data.orderNumber;
+        var confirmationReportNumber = orderNumber.replace(/B/g, "AB");
 		record.data.confirmationReportNumber = record.data.documentNumber;
 		var createConfirmationReportStore = MyApp.getApplication()
 				.getStore('CreateConfirmationReportItemDataStore');
@@ -85,6 +85,9 @@ Ext.define('MyApp.controller.ConfirmController', {
 		Ext.Ajax.request({
 			url : constants.REST_BASE_URL + 'report/generateNumber',
 			method: 'GET',
+			params : {
+				orderNumber: orderNumber
+			},
 			success : function(response) {
 				var generatedNo = 'AB' + Ext.decode(response.responseText).data;
 				Ext.getCmp('newOrderConfirmationNumber').setValue(generatedNo);
