@@ -17,6 +17,8 @@ Ext.define('MyApp.model.ItemData', {
     }, {
         name: 'orderNumber'
     }, {
+        name: 'additionalInfo'
+    },{
         name: 'invoiceNumber'
     }, {
         name: 'orderConfirmationNumber'

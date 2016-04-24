@@ -117,6 +117,18 @@ Ext.define('MyApp.view.CreateOrderItemGridPanel', {
                 }
             }, {
                 xtype: 'gridcolumn',
+                dataIndex: 'additionalInfo',
+                flex: 1,
+                text: 'zus&auml;tzliche Info',
+                filter: {
+                    type: 'string'
+                },
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: true
+                }
+            }, {
+                xtype: 'gridcolumn',
                 dataIndex: 'quantityLeft',
                 width: 75,
                 text: 'Menge',
