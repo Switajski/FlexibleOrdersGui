@@ -84,15 +84,8 @@ Ext.define('MyApp.controller.InvoiceController', {
                         'data')
                 },
                 success: function (response) {
-                    var text = response.responseText;
-                    // Sync
-                    MyApp.getApplication()
-                        .getController('MyController').sleep(500);
-                    var allGrids = Ext.ComponentQuery
-                        .query('PositionGrid');
-                    allGrids.forEach(function (grid) {
-                        grid.getStore().load();
-                    });
+                    var transition = Ext.JSON.decode(response.responseText).
+                    MyApp.updateGridsByResponse(transition, 'DeliveryNotesItemDataStore', 'InvoiceItemDataStore');
                     Ext.getCmp("InvoiceWindow").close();
                 },
                 failure: function(response) {

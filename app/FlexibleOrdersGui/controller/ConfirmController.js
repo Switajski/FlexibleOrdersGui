@@ -148,14 +148,8 @@ Ext.define('MyApp.controller.ConfirmController', {
 							'data')
 				},
 				success : function(response) {
-					var text = response.responseText;
-					// Sync
-					MyApp.getApplication().getController('MyController')
-							.sleep(500);
-					var allGrids = Ext.ComponentQuery.query('PositionGrid');
-					allGrids.forEach(function(grid) {
-								grid.getStore().load();
-							});
+					var transition = Ext.JSON.decode(response.responseText).data;
+					MyApp.updateGridsByResponse(transition, 'ItemDataStore', 'ShippingItemDataStore');
 					Ext.getCmp("ConfirmWindow").close();
 				}
 			});

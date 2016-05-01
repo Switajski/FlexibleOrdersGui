@@ -1,6 +1,6 @@
 Ext.define('MyApp.store.ItemDataStore', {
     extend: 'Ext.data.Store',
-    customurl: constants.REST_BASE_URL +'reportitems/ordered',
+    customurl: constants.REST_BASE_URL + 'reportitems/ordered',
     custommodel: 'MyApp.model.ItemData',
     customstoreid: 'ItemDataStore',
     requires: ['MyApp.model.ItemData'],
@@ -26,7 +26,7 @@ Ext.define('MyApp.store.ItemDataStore', {
                 api: {
                     read: this.customurl,
                     update: this.customurl,
-                    destroy: constants.REST_BASE_URL +'transitions/deleteOrder',
+                    destroy: constants.REST_BASE_URL + 'transitions/deleteOrder',
                     create: this.customurl
                 },
                 headers: {
@@ -43,5 +43,23 @@ Ext.define('MyApp.store.ItemDataStore', {
                 }
             }
         }, cfg)]);
+    },
+
+    /**
+     * creates a store out of items of passed store filtered by passed filter
+     * @param store
+     * @param filter
+     * @returns {Ext.data.Store}
+     */
+    filterAndCollectToNewStore: function (filter, store) {
+        var data = store.data.items;
+        var newStore = Ext.create('Ext.data.Store', {model: 'MyApp.model.ItemData'});
+        for (var i = 0; i < data.length; i++) {
+            if (filter(data[i])) {
+                newStore.add(data[i]);
+            }
+        }
+        return newStore;
+
     }
 });

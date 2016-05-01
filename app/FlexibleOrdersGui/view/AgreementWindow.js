@@ -6,7 +6,7 @@ Ext.define('MyApp.view.AgreementWindow', {
     layout: 'fit',
     defaultInvoiceNumber: 0,
     record: null,
-    closeAction: 'destroy',
+    closeAction: 'destroy', 
 
     initComponent: function () {
         var me = this;

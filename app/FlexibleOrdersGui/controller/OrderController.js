@@ -43,14 +43,18 @@ Ext.define('MyApp.controller.OrderController', {
 				country : record.data.country,
 				items : items
 			},
-			success : function() {
+			success : function(response) {
 				// Sync
-				var controller = MyApp.getApplication().getController(
-						'MyController');
-				controller.sleep(500);
-				controller.syncAll();
-				Ext.getCmp('CreateOrderGrid').getStore().removeAll();
-				Ext.getCmp("OrderWindow").close();
+				var transition = Ext.JSON.decode(response.responseText).data;
+                var created = transition.CREATED;
+
+                var store = MyApp.getApplication().getStore('ItemDataStore');
+                for (var i = 0; i < created.length; i++) {
+                    store.add(created[i]);
+                }
+
+                Ext.getCmp('CreateOrderGrid').getStore().removeAll();
+				Ext.getCmp('OrderWindow').close();
 			}
 		});
 	},

@@ -1,80 +1,85 @@
 Ext.define('MyApp.controller.AgreementController', {
-	debug : true,
-	extend : 'Ext.app.Controller',
+    debug: true,
+    extend: 'Ext.app.Controller',
 
-	id : 'AgreementController',
-	models : ['ItemData'],
-	stores : ['CreateAgreementItemDataStore'],
-	views : ['AgreementWindow'],
+    id: 'AgreementController',
+    models: ['ItemData'],
+    stores: ['CreateAgreementItemDataStore'],
+    views: ['AgreementWindow'],
 
-	init : function(application) {
-		this.control({
-				});
-	},
-	
-	onAgree : function(event, record) {
-		agreementNumber = record.data.documentNumber.replace(/AB/g, "AU");
+    init: function (application) {
+        this.control({});
+    },
 
-		record.data.agreementNumber = record.data.documentNumber;
-		var createAgreementStore = MyApp.getApplication()
-				.getStore('CreateAgreementItemDataStore');
-		createAgreementStore.filter([{
-					property : "customerNumber",
-					value : record.data.customerNumber
-				}, {
-					property : "status",
-					value : "confirmed"
-				}]);
+    onAgree: function (event, record) {
+        var documentNumber = record.data.documentNumber;
+        agreementNumber = documentNumber.replace(/AB/g, "AU");
 
-		var agreementWindow = Ext.create('MyApp.view.AgreementWindow', {
-					id : "AgreementWindow",
-					onSave : function() {
-						MyApp
-								.getApplication()
-								.getController('AgreementController')
-								.agree("ok", kunde, createAgreementStore);
-					}
-				});
-		kunde = Ext.getStore('KundeDataStore').findRecord("customerNumber",
-				record.data.customerNumber);
-		kundeId = kunde.data.id;
-		email = kunde.data.email;
+        record.data.agreementNumber = documentNumber;
 
-		agreementWindow.show();
-		agreementWindow.down('form').getForm().setValues({
-				customerNumber : kunde.data.customerNumber,
-				lastName : kunde.data.lastName,
-				expectedDelivery : record.data.expectedDelivery,
-				orderConfirmationNumber : record.data.documentNumber,
-				orderAgreementNumber : agreementNumber
-				});
-		agreementWindow.down('form').getForm().baseParams = {orderConfirmationNumber : record.data.documentNumber};
-	},
+        // create store with items from already loaded store
+        var createAgreementStore = MyApp.getApplication().getStore('ShippingItemDataStore');
+        var itemsToBeAgreedStore = createAgreementStore.filterAndCollectToNewStore(createAgreementStore, function filter(item) {
+            if (item.data.documentNumber == documentNumber)
+                return true;
+            return false;
+        });
 
-	agree : function(event, record, createAgreementStore) {
-		var form = Ext.getCmp('AgreementWindow').down('form').getForm();
-		if (event == "ok") {
+        var agreementWindow = Ext.create('MyApp.view.AgreementWindow', {
+            id: "AgreementWindow",
+            onSave: function () {
+                MyApp
+                    .getApplication()
+                    .getController('AgreementController')
+                    .agree("ok", kunde, itemsToBeAgreedStore);
+            }
+        });
+        kunde = Ext.getStore('KundeDataStore').findRecord("customerNumber",
+            record.data.customerNumber);
+        kundeId = kunde.data.id;
+        email = kunde.data.email;
 
-			var request = Ext.Ajax.request({
-				url : constants.REST_BASE_URL + 'transitions/agree',
-				params : {
-					orderAgreementNumber : form.getValues().orderAgreementNumber,
-					orderConfirmationNumber : form.baseParams.orderConfirmationNumber
-				},
-				success : function(response) {
-					var text = response.responseText;
-					// Sync
-					MyApp.getApplication().getController('MyController')
-							.sleep(500);
-					var allGrids = Ext.ComponentQuery.query('PositionGrid');
-					allGrids.forEach(function(grid) {
-								grid.getStore().load();
-							});
-					Ext.getCmp("AgreementWindow").close();
-				}
-			});
-		}
-	}
-	
-	
+        agreementWindow.show();
+        agreementWindow.down('form').getForm().setValues({
+            customerNumber: kunde.data.customerNumber,
+            lastName: kunde.data.lastName,
+            expectedDelivery: record.data.expectedDelivery,
+            orderConfirmationNumber: documentNumber,
+            orderAgreementNumber: agreementNumber
+        });
+        agreementWindow.down('form').getForm().baseParams = {orderConfirmationNumber: documentNumber};
+    },
+
+    agree: function (event, record, createAgreementStore) {
+        var documentNumber = record.data.documentNumber;
+        var form = Ext.getCmp('AgreementWindow').down('form').getForm();
+        if (event == "ok") {
+
+            var request = Ext.Ajax.request({
+                url: constants.REST_BASE_URL + 'transitions/agree',
+                params: {
+                    orderAgreementNumber: form.getValues().orderAgreementNumber,
+                    orderConfirmationNumber: form.baseParams.orderConfirmationNumber
+                },
+                success: function (response) {
+                    var text = response.responseText;
+                    
+                    var store = MyApp.getApplication().getStore('ShippingItemDataStore');
+                    var itemsToBeAgreed = store.findBy(function (item) {
+                        if (item.data.documentNumber == documentNumber)
+                            return true;
+                        return false; 
+                    });
+                    for (var i = 0; i < itemsToBeAgreed.length; i++) {
+                        var item = store.getById(itemsToBeAgreed[i].data.id);
+                        item.agreed = true;
+                    }
+
+                    Ext.getCmp("AgreementWindow").close();
+                }
+            });
+        }
+    }
+
+
 });

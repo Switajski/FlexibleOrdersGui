@@ -13,18 +13,14 @@ Ext.define('MyApp.controller.DeliverController', {
 
     onDeliver: function (event, record) {
 
-        var createDeliveryNotesStore = MyApp.getApplication()
-            .getStore('CreateDeliveryNotesItemDataStore');
-        createDeliveryNotesStore.filter([{
-            property: "customerNumber",
-            value: record.data.customerNumber
-        }, {
-            property: "status",
-            value: "agreed"
-        }, {
-            property: "asdf",
-            value: "asdf"
-        }]);
+        var store = MyApp.getApplication()
+            .getStore('ShippingItemDataStore');
+        var createDeliveryNotesStore = store
+            .filterAndCollectToNewStore(function(item){
+                if (item.data.customerNumber == record.data.customerNumber)
+                    return true;
+                return false;
+            }, store);
 
         var deliverWindow = Ext.create('MyApp.view.DeliverWindow', {
             id: "DeliverWindow",
@@ -105,7 +101,7 @@ Ext.define('MyApp.controller.DeliverController', {
                 },
                 success: function (response) {
                     var transition = Ext.JSON.decode(response.responseText).data;
-                    MyApp.successfulTransition(transition, 'ShippingItemDataStore', 'DeliveryNotesItemDataStore');
+                    MyApp.updateGridsByResponse(transition, 'ShippingItemDataStore', 'DeliveryNotesItemDataStore');
                     Ext.getCmp("DeliverWindow").close();
                 },
                 failure: function (response) {
