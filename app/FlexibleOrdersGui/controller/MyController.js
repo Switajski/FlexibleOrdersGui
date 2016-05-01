@@ -356,3 +356,19 @@ MyApp.customAlert = function () {
         }
     };
 }();
+
+MyApp.successfulTransition = function(transition, storeFrom, storeTo){
+    var completed = transition.COMPLETED;
+    var created = transition.CREATED;
+
+    var from = MyApp.getApplication().getStore(storeFrom);
+    for (var i = 0; i < completed.length; i++) {
+        from.remove(from.getById(completed[i].id));
+    }
+
+    var to = MyApp.getApplication().getStore(storeTo);
+    for (var i = 0; i < created.length; i++) {
+        to.add(created[i]);
+    }
+
+}

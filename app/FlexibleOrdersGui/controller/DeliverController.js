@@ -61,12 +61,12 @@ Ext.define('MyApp.controller.DeliverController', {
 
 
         Ext.Ajax.request({
-            url : constants.REST_BASE_URL + 'deliveryNotes/generateNumber',
+            url: constants.REST_BASE_URL + 'deliveryNotes/generateNumber',
             method: 'GET',
-            params : {
-                orderConfirmationNumber:record.data.documentNumber
+            params: {
+                orderConfirmationNumber: record.data.documentNumber
             },
-            success : function(response) {
+            success: function (response) {
                 var generatedNo = Ext.decode(response.responseText).data;
                 Ext.getCmp('deliveryNotesNumber').setValue(generatedNo);
                 record.data.deliveryNotesNumber = generatedNo;
@@ -104,18 +104,13 @@ Ext.define('MyApp.controller.DeliverController', {
                         'data')
                 },
                 success: function (response) {
-                    var text = response.responseText;
-                    // Sync
-                    MyApp.getApplication().getController('MyController').sleep(500);
-                    var allGrids = Ext.ComponentQuery.query('PositionGrid');
-                    allGrids.forEach(function (grid) {
-                        grid.getStore().load();
-                    });
+                    var transition = Ext.JSON.decode(response.responseText).data;
+                    MyApp.successfulTransition(transition, 'ShippingItemDataStore', 'DeliveryNotesItemDataStore');
                     Ext.getCmp("DeliverWindow").close();
                 },
-                failure: function(response) {
-                    var responseText =  Ext.JSON.decode(response.responseText);
-                    if (responseText.message.indexOf('#CAE') != -1){
+                failure: function (response) {
+                    var responseText = Ext.JSON.decode(response.responseText);
+                    if (responseText.message.indexOf('#CAE') != -1) {
                         var controller = MyApp.getApplication().getController('ShippingAddressController');
                         controller.onChangeShippingAddress(controller.getDocumentNumbers());
                     } else {
