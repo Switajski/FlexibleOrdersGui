@@ -13,14 +13,16 @@ Ext.define('MyApp.controller.DeliverController', {
 
     onDeliver: function (event, record) {
 
-        var store = MyApp.getApplication()
-            .getStore('ShippingItemDataStore');
-        var createDeliveryNotesStore = store
-            .filterAndCollectToNewStore(function(item){
-                if (item.data.customerNumber == record.data.customerNumber)
-                    return true;
-                return false;
-            }, store);
+        var store = MyApp.getApplication().getStore('ShippingItemDataStore');
+        var data = store.data.items;
+        var createDeliveryNotesStore = MyApp.getApplication().getStore('CreateDeliveryNotesItemDataStore');
+        createDeliveryNotesStore.removeAll();
+        for (var i = 0; i < data.length; i++) {
+            if ((data[i].data.customerNumber == record.data.customerNumber)
+                && data[i].data.agreed) {
+                createDeliveryNotesStore.add(data[i]);
+            }
+        }
 
         var deliverWindow = Ext.create('MyApp.view.DeliverWindow', {
             id: "DeliverWindow",

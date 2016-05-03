@@ -372,3 +372,16 @@ MyApp.updateGridsByResponse = function(transition, storeFrom, storeTo){
     }
 
 }
+
+MyApp.asdf = function(sourceStoreId, transStoreId, customerNumber){
+    var sourceStore = MyApp.getApplication().getStore(sourceStoreId);
+    var sourceItems = sourceStore.data.items;
+    var storeForTrans = MyApp.getApplication().getStore(transStoreId);
+
+    storeForTrans.removeAll();
+    for (var i = 0; i < sourceItems.length; i++) {
+        if (sourceItems[i].data.customerNumber == customerNumber) {
+            storeForTrans.add(sourceItems[i]);
+        }
+    }
+}

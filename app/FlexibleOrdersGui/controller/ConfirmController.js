@@ -18,22 +18,11 @@ Ext.define('MyApp.controller.ConfirmController', {
 		var orderNumber = record.data.orderNumber;
         var confirmationReportNumber = orderNumber.replace(/B/g, "AB");
 		record.data.confirmationReportNumber = record.data.documentNumber;
-		var createConfirmationReportStore = MyApp.getApplication()
-				.getStore('CreateConfirmationReportItemDataStore');
-		//FIXME: Got problems with creating a store dynamically. This Snippet only works the second time the window is opened
-		//var createConfirmationReportStore = Ext.create('MyApp.store.CreateConfirmationReportItemDataStore', {
-		//	id: "CreateConfirmationReportItemDataStore",
-		//	listeners : {
-		//        load : function(store, recs) {
-		//            console.log(recs.length, store.getCount()); //both are 2
-		//        }
-		//	}
-		//});
-		//
-		// See solution how DeliveryHistoryStore works
-		createConfirmationReportStore.clearFilter(true);
-		createConfirmationReportStore.filter([{property: 'customerNumber', value:record.data.customerNumber},
-			{property: 'status', value:'ordered'}]);
+
+		var createConfirmationReportStore = MyApp.asdf(
+			'ItemDataStore',
+			'CreateConfirmationReportItemDataStore',
+			record.data.customerNumber);
 
 		var confirmWindow = Ext.create('MyApp.view.ConfirmWindow', {
 					id : "ConfirmWindow",
@@ -105,8 +94,10 @@ Ext.define('MyApp.controller.ConfirmController', {
 				.setValue(confirmationReportNumber);
 	},
 
-	confirm : function(event, record, createConfirmationReportStore) {
+	confirm : function(event, record) {
 		var form = Ext.getCmp('ConfirmWindow').down('form').getForm();
+		var createConfirmationReportStore = MyApp.getApplication().getStore('CreateConfirmationReportItemDataStore');
+		
 		if (event == "ok") {
 
 			var request = Ext.Ajax.request({

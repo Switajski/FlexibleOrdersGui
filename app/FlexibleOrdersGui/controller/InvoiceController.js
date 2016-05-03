@@ -12,30 +12,21 @@ Ext.define('MyApp.controller.InvoiceController', {
     },
 
     invoice: function (event, record) {
-        deliveryNotesNumber = record.data.deliveryNotesNumber
-            .replace(/L/g, "R");
-
-        record.data.deliveryNotesNumber = record.data.deliveryNotesNumber;
-        var createInvoiceStore = MyApp.getApplication()
-            .getStore('CreateInvoiceItemDataStore');
-        createInvoiceStore.filter([{
-            property: "customerNumber",
-            value: record.data.customerNumber
-        }, {
-            property: "status",
-            value: "shipped"
-        }]);
+        var deliveryNotesNumber = record.data.deliveryNotesNumber.replace(/L/g, "R");
+        var customerNumber = record.data.customerNumber;
+        
+        var storeForTrans = MyApp.asdf('DeliveryNotesItemDataStore', 'CreateInvoiceItemDataStore', customerNumber);
 
         var invoiceWindow = Ext.create('MyApp.view.InvoiceWindow', {
             id: "InvoiceWindow",
             onSave: function () {
                 MyApp.getApplication().getController('InvoiceController')
-                    .invoice2("ok", kunde, createInvoiceStore);
+                    .invoice2("ok", kunde, storeForTrans);
             }
         });
 
         kunde = Ext.getStore('KundeDataStore').findRecord("customerNumber",
-            record.data.customerNumber);
+            customerNumber);
         kundeId = kunde.data.customerNumber;
         email = kunde.data.email;
 
@@ -84,13 +75,13 @@ Ext.define('MyApp.controller.InvoiceController', {
                         'data')
                 },
                 success: function (response) {
-                    var transition = Ext.JSON.decode(response.responseText).
+                    var transition = Ext.JSON.decode(response.responseText);
                     MyApp.updateGridsByResponse(transition, 'DeliveryNotesItemDataStore', 'InvoiceItemDataStore');
                     Ext.getCmp("InvoiceWindow").close();
                 },
-                failure: function(response) {
-                    var responseText =  Ext.JSON.decode(response.responseText);
-                    if (responseText.message.indexOf('#CAE') != -1){
+                failure: function (response) {
+                    var responseText = Ext.JSON.decode(response.responseText);
+                    if (responseText.message.indexOf('#CAE') != -1) {
                         var controller = MyApp.getApplication().getController('InvoicingAddressController');
                         controller.onChangeShippingAddress(controller.getDocumentNumbers());
                     } else {
