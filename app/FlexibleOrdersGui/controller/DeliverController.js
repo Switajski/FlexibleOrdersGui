@@ -15,15 +15,18 @@ Ext.define('MyApp.controller.DeliverController', {
 
         var store = MyApp.getApplication()
             .getStore('ShippingItemDataStore');
+
         var createDeliveryNotesStore = store
-            .filterAndCollectToNewStore(function(item){
-                if (item.data.customerNumber == record.data.customerNumber)
-                    return true;
-                return false;
-            }, store);
+            .filterAndCollectToNewStore(store, function(item){
+            if (item.data.customerNumber == record.data.customerNumber)
+                return true;
+            return false;
+        });
+        this.createDeliveryNotesStore = createDeliveryNotesStore;
 
         var deliverWindow = Ext.create('MyApp.view.DeliverWindow', {
             id: "DeliverWindow",
+            store: createDeliveryNotesStore,
             onSave: function () {
                 MyApp
                     .getApplication()

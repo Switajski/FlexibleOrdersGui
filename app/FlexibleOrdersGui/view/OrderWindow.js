@@ -65,6 +65,31 @@ Ext.define('MyApp.view.OrderWindow', {
                 name: 'created'
             }]
         }]
+
+    },
+    initComponent: function () {
+        var me = this;
+        Ext.applyIf(me, {
+            layout: 'anchor',
+            items: [{
+                xtype: 'form',
+                dockedItems: [{
+                    xtype: 'toolbar',
+                    dock: 'bottom',
+                    ui: 'footer',
+                    items: ['->', {
+                        iconCls: 'icon-save',
+                        itemId: 'save',
+                        text: 'Speichern',
+                        disabled: false,
+                        scope: this,
+                        handler: this.onSave
+                    }]
+                }, this.bottomGrid]
+            }]
+        });
+
+        me.callParent(arguments);
     },
     deliveryAddressForm: null,
     addressForm: null,
@@ -73,6 +98,7 @@ Ext.define('MyApp.view.OrderWindow', {
         plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
             clicksToEdit: 1
         })],
+        paging:false,
         dock: 'bottom',
         id: 'CreateOrderGrid',
         flex: 1,
