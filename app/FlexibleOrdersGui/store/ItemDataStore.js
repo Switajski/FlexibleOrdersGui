@@ -47,14 +47,13 @@ Ext.define('MyApp.store.ItemDataStore', {
 
     /**
      * creates a store out of items of passed store filtered by passed filter
-     * @param filter
      * @param store
+     * @param filter
      * @returns {Ext.data.Store}
      */
-    filterAndCollectToNewStore: function (store, filter) {
+    filterAndCollectToNewStore: function (filter, store) {
         var data = store.data.items;
-        var newStore = Ext.create('MyApp.store.ItemDataStore', {
-        });
+        var newStore = Ext.create('Ext.data.Store', {model: 'MyApp.model.ItemData'});
         for (var i = 0; i < data.length; i++) {
             if (filter(data[i])) {
                 newStore.add(data[i]);

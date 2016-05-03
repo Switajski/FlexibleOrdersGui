@@ -126,7 +126,6 @@ Ext.define('MyApp.view.TransitionWindow', {
     },
     initComponent: function () {
         var me = this;
-        this.bottomGrid.store = me.store;
         this.editing = Ext.create('Ext.grid.plugin.CellEditing');
         Ext.applyIf(me, {
             layout: 'anchor',

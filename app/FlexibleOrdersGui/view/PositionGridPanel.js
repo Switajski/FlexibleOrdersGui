@@ -25,9 +25,8 @@ Ext.define('MyApp.view.PositionGridPanel', {
     alias: 'widget.PositionGrid',
     title: "Abstrakte Positionen - (abstract items)",
     customIsFirstPanel: true,
-    paging:true,
     customicon: constants.RESOURCES_BASE_URL + 'images/arrow-down.png',
-    initComponent: function (arguments) {
+    initComponent: function () {
         var me = this;
         this.editing = Ext.create('Ext.grid.plugin.CellEditing');
 
@@ -125,21 +124,15 @@ Ext.define('MyApp.view.PositionGridPanel', {
                 }]
             }
 
-            ]
+            ],
+            dockedItems: [{
+                xtype: 'pagingtoolbar',
+                dock: 'bottom',
+                width: 360,
+                displayInfo: true,
+                store: this.store
+            }]
         });
-
-        if (this.paging) {
-            Ext.applyIf(me, {
-                dockedItems: [{
-                    xtype: 'pagingtoolbar',
-                    dock: 'bottom',
-                    width: 360,
-                    displayInfo: true,
-                    store: this.store
-                }]
-            });
-        }
-
         me.callParent(arguments);
 
     },
@@ -162,10 +155,10 @@ Ext.define('MyApp.view.PositionGridPanel', {
         var documentNumber = record.data.documentNumber;
         Ext.MessageBox.confirm('Best&auml;tigung', 'Wollen Sie das Dokument '
             + documentNumber + ' l&ouml;schen?',
-            function (btn) {
+            function(btn){
                 if (btn == 'yes')
-                    MyApp.getApplication().getController('MyController')
-                        .deleteReport(documentNumber);
+                MyApp.getApplication().getController('MyController')
+                    .deleteReport(documentNumber);
             });
     },
     onDeliveryHistoryClick: function (view, a, b, column, event, record, f) {
