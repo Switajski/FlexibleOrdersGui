@@ -13,18 +13,15 @@ Ext.define('MyApp.controller.AgreementController', {
 
     onAgree: function (event, record) {
         var documentNumber = record.data.documentNumber;
-        agreementNumber = documentNumber.replace(/AB/g, "AU");
+        var agreementNumber = documentNumber.replace(/AB/g, "AU");
 
         record.data.agreementNumber = documentNumber;
 
-        // create store with items from already loaded store
-        var createAgreementStore = MyApp.getApplication().getStore('ShippingItemDataStore');
-        var itemsToBeAgreedStore = createAgreementStore.filterAndCollectToNewStore(createAgreementStore, function filter(item) {
-            if (item.data.documentNumber == documentNumber)
-                return true;
-            return false;
-        });
-
+        var itemsToBeAgreedStore = MyApp.fillStore(
+			'ItemDataStore',
+			'CreateAgreementItemDataStore',
+			record.data.customerNumber);
+        
         var agreementWindow = Ext.create('MyApp.view.AgreementWindow', {
             id: "AgreementWindow",
             onSave: function () {
@@ -51,7 +48,6 @@ Ext.define('MyApp.controller.AgreementController', {
     },
 
     agree: function (event, record, createAgreementStore) {
-        var documentNumber = record.data.documentNumber;
         var form = Ext.getCmp('AgreementWindow').down('form').getForm();
         if (event == "ok") {
 
@@ -62,17 +58,13 @@ Ext.define('MyApp.controller.AgreementController', {
                     orderConfirmationNumber: form.baseParams.orderConfirmationNumber
                 },
                 success: function (response) {
-                    var text = response.responseText;
-                    
+                    var documentNumber = Ext.decode(response.responseText).data.documentNumber;
                     var store = MyApp.getApplication().getStore('ShippingItemDataStore');
-                    var itemsToBeAgreed = store.findBy(function (item) {
-                        if (item.data.documentNumber == documentNumber)
-                            return true;
-                        return false; 
-                    });
-                    for (var i = 0; i < itemsToBeAgreed.length; i++) {
-                        var item = store.getById(itemsToBeAgreed[i].data.id);
-                        item.agreed = true;
+                    var items = store.data.items;
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].data.documentNumber == documentNumber) {
+                            items[i].data.agreed = true;
+                        }
                     }
 
                     Ext.getCmp("AgreementWindow").close();

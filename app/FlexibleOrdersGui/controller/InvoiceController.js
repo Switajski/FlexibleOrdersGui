@@ -15,7 +15,7 @@ Ext.define('MyApp.controller.InvoiceController', {
         var deliveryNotesNumber = record.data.deliveryNotesNumber.replace(/L/g, "R");
         var customerNumber = record.data.customerNumber;
         
-        var storeForTrans = MyApp.asdf('DeliveryNotesItemDataStore', 'CreateInvoiceItemDataStore', customerNumber);
+        var storeForTrans = MyApp.fillStore('DeliveryNotesItemDataStore', 'CreateInvoiceItemDataStore', customerNumber);
 
         var invoiceWindow = Ext.create('MyApp.view.InvoiceWindow', {
             id: "InvoiceWindow",

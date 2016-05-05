@@ -19,7 +19,7 @@ Ext.define('MyApp.controller.ConfirmController', {
         var confirmationReportNumber = orderNumber.replace(/B/g, "AB");
 		record.data.confirmationReportNumber = record.data.documentNumber;
 
-		var createConfirmationReportStore = MyApp.asdf(
+		var createConfirmationReportStore = MyApp.fillStore(
 			'ItemDataStore',
 			'CreateConfirmationReportItemDataStore',
 			record.data.customerNumber);
