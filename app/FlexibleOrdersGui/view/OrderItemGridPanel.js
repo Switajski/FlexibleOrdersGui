@@ -15,6 +15,10 @@ Ext.define('MyApp.view.OrderItemGridPanel', {
     onRemoveClick: function (view, a, b, column, event, record, f) {
         MyApp.getApplication().getController('OrderController').deleteOrder(
             record.data.orderNumber);
+    },
+    onEditClick: function(view, a, b, column, event, record){
+        MyApp.getApplication().getController('OrderController').onEdit(
+            record.data.orderNumber, record.data.customerNumber);
     }
 
 });

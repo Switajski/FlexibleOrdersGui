@@ -43,6 +43,7 @@ Ext.define('MyApp.view.OrderWindow', {
             items: [{
                 itemid: 'newOrderNumber',
                 xtype: 'ordernumbercombobox',
+                enabled: false,
                 labelWidth: 60,
                 fieldLabel: 'Bestellnr',
                 listeners: {

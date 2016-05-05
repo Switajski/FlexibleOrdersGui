@@ -115,6 +115,16 @@ Ext.define('MyApp.view.PositionGridPanel', {
                 xtype: 'actioncolumn',
                 width: 30,
                 sortable: false,
+                items: [{
+                    icon: constants.RESOURCES_BASE_URL + 'images/edit.png',
+                    tooltip: 'Pdf anzeigen',
+                    scope: this,
+                    handler: this.onEditClick
+                }]
+            }, {
+                xtype: 'actioncolumn',
+                width: 30,
+                sortable: false,
                 menuDisabled: true,
                 items: [{
                     icon: constants.RESOURCES_BASE_URL + 'images/delete.png',

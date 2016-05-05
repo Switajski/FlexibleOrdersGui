@@ -98,6 +98,49 @@ Ext.define('MyApp.controller.OrderController', {
 				controller.syncAll();
 			}
 		});
-	}
+	},
+    
+    onEdit : function(orderNumber, customerNumber){
+		customerStore = MyApp.getApplication().getStore('KundeDataStore');
+		customer = customerStore.getAt(customerStore.find('customerNumber', customerNumber));
+
+        var sourceStore = MyApp.getApplication().getStore('ItemDataStore');
+        var sourceItems = sourceStore.data.items;
+        var storeForTrans = MyApp.getApplication().getStore('CreateOrderDataStore');
+
+        storeForTrans.removeAll();
+        for (var i = 0; i < sourceItems.length; i++) {
+            if (sourceItems[i].data.documentNumber == orderNumber) {
+                storeForTrans.add(sourceItems[i]);
+            }
+        }
+
+		var orderWindow = Ext.create('MyApp.view.OrderWindow', {
+			id : "OrderWindow",
+            modal:true,
+			record : customer,
+            title : 'Bestellung ' + orderNumber + ' &auml;ndern',
+            onSave : function edit(button,event, option){
+                MyApp.getApplication().getController('OrderController')
+                    .edit(button,event, option);
+            },
+			onShow : function() {
+                var oNoBox = this.down('ordernumbercombobox');
+                oNoBox.setValue(orderNumber);
+                oNoBox.disable();
+
+				this.down('datefield').setValue(sourceItems[0].data.created);
+                var form = this.down('form').getForm();
+                form.loadRecord(customer);
+                form.getValues().orderNumber = orderNumber;
+			}
+		});
+		orderWindow.show();
+		orderWindow.focus();
+    },
+
+    edit : function(a,b,c){
+        Ext.Msg.alert("Noch nicht implementiert!");
+    }
 
 });
