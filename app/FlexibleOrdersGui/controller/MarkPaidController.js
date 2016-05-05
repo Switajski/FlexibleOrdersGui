@@ -10,33 +10,33 @@ Ext.define('MyApp.controller.MarkPaidController', {
 	},
 
 	markPaid : function(event, anr, record) {
-		record.data.accountNumber = record.data.invoiceNumber
-				.replace(/R/g, "Q");
-		if (event == "ok") {
+		var docNo = record.data.documentNumber;
+		var source = MyApp.getApplication().getStore('InvoiceItemDataStore');
+        var markPaidStore = source.filterAndCollectToNewStore(
+			function(item){
+				if (item.data.documentNumber == docNo)
+					return true;
+				return false;
+			}, source
 
-			var request = Ext.Ajax.request({
+		);
+
+		if (event == "ok") {
+			Ext.Ajax.request({
 				url : constants.REST_BASE_URL + 'transitions/markPaid',
-				params : {
-					id : record.data.id,
-					productNumber : record.data.product,
-					quantity : record.data.quantity,
-					invoiceNumber : record.data.invoiceNumber,
-					accountNumber : record.data.accountNumber
-				},
 				jsonData : {
-					invoiceNumber : record.data.invoiceNumber
+					invoiceNumber : record.data.invoiceNumber,
+					items: Ext.pluck(markPaidStore.data.items, 'data')
 				},
 				success : function(response) {
-					var text = response.responseText;
+					var completed = Ext.JSON.decode(response.responseText).data.COMPLETED;
+					var from = MyApp.getApplication().getStore('InvoiceItemDataStore');
+					for (var i = 0; i < completed.length; i++) {
+						from.remove(from.getById(completed[i].id));
+					}
 				}
 			});
 
-			// Sync
-			MyApp.getApplication().getController('MyController').sleep(500);
-			var allGrids = Ext.ComponentQuery.query('PositionGrid');
-			allGrids.forEach(function(grid) {
-				grid.getStore().load();
-			});
 		}
 	}
 
