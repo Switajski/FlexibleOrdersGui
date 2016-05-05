@@ -76,7 +76,7 @@ Ext.define('MyApp.controller.InvoiceController', {
                         'data')
                 },
                 success: function (response) {
-                    var transition = Ext.JSON.decode(response.responseText);
+                    var transition = Ext.JSON.decode(response.responseText).data;
                     MyApp.updateGridsByResponse(transition, 'DeliveryNotesItemDataStore', 'InvoiceItemDataStore');
                     Ext.getCmp("InvoiceWindow").close();
                 },

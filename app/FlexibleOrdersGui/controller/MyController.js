@@ -361,6 +361,11 @@ MyApp.updateGridsByResponse = function(transition, storeFrom, storeTo){
     var completed = transition.COMPLETED;
     var created = transition.CREATED;
 
+    if (transition.CREATED == undefined){
+        Ext.Msg.alert("Fehler", "Konnte Antwort vom Server nicht parsen");
+        return;
+    }
+
     var from = MyApp.getApplication().getStore(storeFrom);
     for (var i = 0; i < completed.length; i++) {
         from.remove(from.getById(completed[i].id));
