@@ -1,6 +1,9 @@
 // @require @packageOverrides
 Ext.Loader.setConfig({
-    enabled: true
+    enabled: true,
+    // removes the "?ds=2354134" out of "http://...../listitems.js?ds=234235"
+    // neccessary for modifying and saving code in browser
+    disableCaching:false
 });
 
 Ext.define('constants', {
