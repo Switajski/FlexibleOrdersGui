@@ -53,6 +53,7 @@ Ext.define('MyApp.controller.InvoiceController', {
     },
 
     invoice2: function (event, record, createInvoiceStore) {
+        createInvoiceStore = MyApp.getApplication().getStore('CreateInvoiceItemDataStore');
         var form = Ext.getCmp('InvoiceWindow').down('form').getForm();
         if (event == "ok") {
             var request = Ext.Ajax.request({
@@ -86,7 +87,7 @@ Ext.define('MyApp.controller.InvoiceController', {
                         controller.onChangeShippingAddress(controller.getDocumentNumbers());
                     } else {
                         Ext.Object.each(responseText.errors, function (field, errorText) {
-                            var field = form.down("[name=" + field + "]");
+                            var field = form.findField(field);
                             field.markInvalid(errorText);
                             field.addCls('custom-invalid');
                         });

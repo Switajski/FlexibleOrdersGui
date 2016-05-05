@@ -82,7 +82,7 @@ Ext.define('MyApp.controller.AddressController', {
             failure: function(response) {
                 var responseText =  Ext.JSON.decode(response.responseText);
                 Ext.Object.each(responseText.errors, function(field, errorText){
-                    var field = form.down("[name=" + field + "]");
+                    var field = form.findField(field);
                     field.markInvalid(errorText);
                     field.addCls('custom-invalid');
                 });
