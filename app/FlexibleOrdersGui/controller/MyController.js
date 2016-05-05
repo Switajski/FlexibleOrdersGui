@@ -384,4 +384,5 @@ MyApp.fillStore = function(sourceStoreId, transStoreId, customerNumber){
             storeForTrans.add(sourceItems[i]);
         }
     }
+    return storeForTrans;
 }
