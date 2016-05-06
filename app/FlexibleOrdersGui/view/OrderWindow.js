@@ -7,7 +7,7 @@ Ext.define('MyApp.view.OrderWindow', {
     headerForm: {
         xtype: 'fieldset',
         title: 'Bestellung',
-        flex: 1,
+        //flex: 1,
         items: [{
             xtype: 'fieldcontainer',
             layout: 'hbox',
@@ -43,7 +43,6 @@ Ext.define('MyApp.view.OrderWindow', {
             items: [{
                 itemid: 'newOrderNumber',
                 xtype: 'ordernumbercombobox',
-                enabled: false,
                 labelWidth: 60,
                 fieldLabel: 'Bestellnr',
                 listeners: {

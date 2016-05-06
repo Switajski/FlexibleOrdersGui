@@ -29,7 +29,7 @@ Ext.define('MyApp.controller.OrderController', {
 		Ext.Ajax.request({
 			url : constants.REST_BASE_URL + 'transitions/order',
 			jsonData : {
-				orderNumber : form.getValues().order,
+				orderNumber : Ext.getCmp('OrderWindow').down('ordernumbercombobox').value,
 				created : form.getValues().created,
 				invoiceNumber : form.getValues().invoiceNumber,
 				packageNumber : form.getValues().packageNumber,
@@ -132,6 +132,7 @@ Ext.define('MyApp.controller.OrderController', {
 				this.down('datefield').setValue(sourceItems[0].data.created);
                 var form = this.down('form').getForm();
                 form.loadRecord(customer);
+                this.down('ordernumbercombobox').setValue(orderNumber);
                 form.getValues().orderNumber = orderNumber;
 			}
 		});
@@ -140,7 +141,54 @@ Ext.define('MyApp.controller.OrderController', {
     },
 
     edit : function(a,b,c){
-        Ext.Msg.alert("Noch nicht implementiert!");
+        var form = Ext.getCmp('OrderWindow').down('form').getForm();
+        var record = form.getRecord();
+
+        var items = Ext.pluck(
+            Ext.getCmp('CreateOrderGrid').getStore().data.items, 'data');
+
+        items.forEach(function(entry) {
+			entry.quantity = entry.quantityLeft;
+		});
+
+        Ext.Ajax.request({
+            url : constants.REST_BASE_URL + 'manipulate',
+            jsonData : {
+                orderNumber : Ext.getCmp('OrderWindow').down('ordernumbercombobox').value,
+                created : form.getValues().created,
+                customerNumber : record.data.customerNumber,
+                name1 : record.data.name1,
+                name2 : record.data.name2,
+                street : record.data.street,
+                postalCode : record.data.postalCode,
+                city : record.data.city,
+                country : record.data.country,
+                items : items
+            },
+            success : function(response) {
+                // Sync
+                var transition = Ext.JSON.decode(response.responseText).data;
+                var created = transition.CREATED;
+                var deleted = transition.COMPLETED;
+				
+				var store = MyApp.getApplication().getStore('ItemDataStore');
+				var items = store.data.items;
+				var documentNumber = items[0].data.documentNumber;
+                for (var i = 0; i < items.length; i++) {
+                	if (items[i].data.documentNumber == documentNumber)
+                    	store.removeAt(store.find('documentNumber', documentNumber));
+                }
+                var store = MyApp.getApplication().getStore('ItemDataStore');
+                for (var i = 0; i < created.length; i++) {
+                    store.add(new MyApp.model.ItemData(created[i]));
+                }
+
+                Ext.getCmp('CreateOrderGrid').getStore().removeAll();
+                Ext.getCmp('OrderWindow').close();
+            }
+        });
+
+
     }
 
 });
