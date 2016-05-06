@@ -76,6 +76,8 @@ Ext.define('MyApp.view.OrderWindow', {
         dock: 'bottom',
         id: 'CreateOrderGrid',
         flex: 1,
+        overflowX: scroll,
+        maxHeight: 700,
         store: 'CreateOrderDataStore',
         title: "Bestellpositionen",
         features: null,
