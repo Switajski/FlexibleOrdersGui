@@ -66,6 +66,8 @@ Ext.define('MyApp.controller.OrderController', {
 		if (customer == null)
 			return;
 
+		MyApp.getApplication().getStore('CreateOrderDataStore').removeAll();
+
 		var orderWindow = Ext.create('MyApp.view.OrderWindow', {
 			id : "OrderWindow",
 			record : customer,
