@@ -9,6 +9,8 @@ Ext.define('MyApp.view.ConfirmWindow', {
         dock: 'bottom',
         id: Ext.getCmp('CreateConfirmationReportItemGrid'),
         flex: 1,
+        overflowX: scroll,
+        maxHeight: 700,
         store: 'CreateConfirmationReportItemDataStore',
         title: "Auftragsbest&auml;tigungspositionen",
         features: null,

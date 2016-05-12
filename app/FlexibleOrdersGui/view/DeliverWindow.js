@@ -13,6 +13,8 @@ Ext.define('MyApp.view.DeliverWindow', {
         dock: 'bottom',
         id: 'CreateDeliveryNotesItemGrid',
         flex: 1,
+        overflowX: scroll,
+        maxHeight: 700,
         store: 'CreateDeliveryNotesItemDataStore',
         title: "Lieferscheinpositionen",
         selType: 'cellmodel',

@@ -64,6 +64,8 @@ Ext.define('MyApp.view.InvoiceWindow', {
         dock: 'bottom',
         id: 'CreateInvoiceItemGrid',
         flex: 1,
+        overflowX: scroll,
+        maxHeight: 700,
         store: 'CreateInvoiceItemDataStore',
         title: "Rechnungspositionen",
         features: null,
