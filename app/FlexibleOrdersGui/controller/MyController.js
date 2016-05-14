@@ -329,7 +329,7 @@ MyApp.customAlert = function () {
             var m = Ext.DomHelper.append(msgCt, {html: createBox(title, s)}, true);
             setTimeout(function () {
                 m.ghost("t", {remove: true});
-            }, 3000);
+            }, 4000);
         },
 
         init: function () {

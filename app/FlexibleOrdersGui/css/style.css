@@ -35,8 +35,8 @@ table .custom-invalid {
     background-color: gold;
 }
 #msg-div {
-    position:absolute;
-    z-index:2;
+    position:relative;
+    z-index: 30000;
     width:300px;
 }
 #extjs_listitems {
