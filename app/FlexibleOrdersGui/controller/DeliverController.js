@@ -112,8 +112,8 @@ Ext.define('MyApp.controller.DeliverController', {
                         var controller = MyApp.getApplication().getController('ShippingAddressController');
                         controller.onChangeShippingAddress(controller.getDocumentNumbers());
                     } else {
-                        Ext.Object.each(responseText.errors, function (field, errorText) {
-                            var field = form.findField(field);
+                        Ext.Object.each(responseText.errors, function (fieldName, errorText) {
+                            var field = form.down("[name=" + fieldName + "]")
                             field.markInvalid(errorText);
                             field.addCls('custom-invalid');
                         });
